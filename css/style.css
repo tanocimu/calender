@@ -1,0 +1,145 @@
+* {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    font-family: "M PLUS 1p";
+    width: 100%;
+}
+
+.calender_box {
+    width: calc(100% - 20px);
+    aspect-ratio: 1 / 1.1;
+    margin: auto;
+    color: rgb(38, 50, 56);
+    background: rgb(215, 204, 200);
+    border-radius: 50px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.calender_th {
+    float: left;
+    background-color: rgb(255, 179, 0);
+    width: 6vw;
+    aspect-ratio: 1 / 1;
+    margin: 3.7vw;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 3vw;
+    line-height: 6vw;
+    border: 1px dashed #000;
+    box-sizing: border-box;
+    position: relative;
+    font-weight: bold;
+}
+
+.calender_td {
+    float: left;
+    background-color: #fff;
+    width: 9.8vw;
+    aspect-ratio: 1 / 1;
+    margin: 1.8vw;
+    border-radius: 50%;
+    font-size: 4vw;
+    line-height: 9.8vw;
+    text-align: center;
+    border: 1px dashed #000;
+    box-sizing: border-box;
+    position: relative;
+    font-weight: bold
+}
+
+.today {
+    background: rgb(156, 204, 101);
+    border: solid;
+}
+
+.holiday {
+    background: rgb(229, 115, 115);
+}
+
+.thismonth {
+    background: rgb(120, 144, 156);
+}
+
+nav {
+    width: 100%;
+    height: 5%;
+}
+
+a.navbt {
+    display: block;
+    width: calc((100% - 2px) / 3);
+    aspect-ratio: 3 / 1;
+    float: left;
+    font-size: 5vw;
+    line-height: 11vw;
+    text-align: center;
+    color: #fff;
+}
+
+.nav01 {
+    background: #000;
+}
+
+.nav02 {
+    background: #000;
+    margin: 0px 1px;
+}
+
+.nav03 {
+    background: #000;
+}
+
+footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 120px;
+    background: #000;    
+}
+
+footer a{
+    position: absolute;
+    display: block;
+    width: 60px;
+    height: 60px;
+    top:25px;
+    float: left;
+    text-indent: -9999px;
+}
+
+footer a:active{
+    animation-name: punipuni;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+
+footer a.icon_home{
+    left:calc(25% - 30px);
+    background: url(./parts/home.png);
+    background-size: contain;   
+}
+
+footer a.icon_calender{
+    left:calc(50% - 30px);
+    background: url(./parts/calender.png);
+    background-size: contain;   
+}
+
+footer a.icon_key{
+    left:calc(75% - 30px);
+    background: url(./parts/key.png);
+    background-size: contain;   
+}
+
+@keyframes punipuni {
+	0% {
+		transform: scale(1, 1);
+        -webkit-transform: scale(1, 1);
+	}
+	50% {
+		transform: scale(0.97, 1.17);
+        -webkit-transform: scale(0.97, 1.17);
+	}
+}
