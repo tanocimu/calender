@@ -6,10 +6,18 @@ function show_calender()
     $startDate = get_beginning_month_date($year , $month);
     $endDate = get_ending_month_date($year , $month);
 
-    echo "<div class='calender_box'><h1>{$month}月の購買スケジュール</h1>";
+    echo "<div class='calender_box'>";
     show_calender_header();
     show_calender_date($startDate, $endDate);
     echo "</div>";
+}
+
+function show_navigation(){
+echo "<nav>
+<a class='navbt nav01'>豊田北高校</a>
+<a class='navbt nav02'>豊田西高校</a>
+<a class='navbt nav03'>豊田東高校</a>
+</nav>";
 }
 
 function show_calender_date($start, $end)
