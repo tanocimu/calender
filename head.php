@@ -1,6 +1,11 @@
 <?php
+session_start();
 require_once("config.php");
-//require_once(DIR_LOGIN . "db_write.php");
+require_once("db_write.php");
+require_once("loginfunc.php");
+require_once "./tweet.php";
+require_once "./calender.php";
+submit_recieve();
 ?>
 <!DOCTYPE html>
 
@@ -23,6 +28,13 @@ require_once("config.php");
 
     <link rel="stylesheet" href="./css/reset.css">
     <link href="https://fonts.googleapis.com/css?family=M+PLUS+1p" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/earlyaccess/nikukyu.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/style_tweet.css">
 </head>
+
+<body>
+    <?php
+    if (login()) {
+        show_tweet_form();
+    } ?>

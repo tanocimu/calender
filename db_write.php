@@ -49,32 +49,29 @@ function db_prepare_sql(string $sql, $pdo)
 
 function submit_recieve()
 {
-    if (isset($_POST['stksubmit']) && $_POST['stktitle'] != "" && $_POST['stkitem'] != "") {
+    if (isset($_POST['submit']) != "" && $_POST['item'] != "") {
         $pdo = db_access();
         $imageurl = "";
-        $stringtitle = enc($_POST['stktitle']);
-        $stringitem = enc($_POST['stkitem']);
+        $item = enc($_POST['item']);
 
-        if (!empty($_FILES['stkimage']['tmp_name'][0])) { //ファイルが選択されていれば$imageにファイル名を代入
-            for ($i = 0; $i < count($_FILES['stkimage']['name']); $i++) {
+        if (!empty($_FILES['image']['tmp_name'][0])) { //ファイルが選択されていれば$imageにファイル名を代入
+            for ($i = 0; $i < count($_FILES['image']['name']); $i++) {
                 $imageurl = uniqid(mt_rand(), true); //ファイル名をユニーク化
-                $imageurl .= '.' . substr(strrchr($_FILES['stkimage']['name'][$i], '.'), 1); //アップロードされたファイルの拡張子を取得
-                move_uploaded_file($_FILES['stkimage']['tmp_name'][$i],  DIR_STOCKIMAGES . $imageurl); //imagesディレクトリにファイル保存
+                $imageurl .= '.' . substr(strrchr($_FILES['image']['name'][$i], '.'), 1); //アップロードされたファイルの拡張子を取得
+                move_uploaded_file($_FILES['image']['tmp_name'][$i],  DIR_IMAGES . $imageurl); //imagesディレクトリにファイル保存
             }
         }
 
         // stk_num空なら記事を新規作成、あればその番号の記事を更新
-        if ($_POST['stknum'] == "") {
-            $sql = "INSERT INTO stockphoto (num, category, title, item, imageurl, updatetime) VALUES (NULL, '" . $_POST['stkcat'] . "', '" . $stringtitle . "', '" . $stringitem . "', '" . $imageurl . "', current_timestamp());";
+        if ($_POST['num'] == "") {
+            $sql = "INSERT INTO kana_tweet (num, category, item, imageurl, author, updatetime) VALUES (NULL, '{$_POST['category']}', '{$item}', '{$imageurl}', '{$_POST['author']}', current_timestamp());";
             db_prepare_sql($sql, $pdo);
         } else {
-            $sql = "UPDATE stockphoto SET title = '" . $stringtitle . "', item = '" . $stringitem . "', imageurl = '" . $imageurl . "' WHERE stockphoto.num = " . $_POST['stknum'];
-            db_prepare_sql($sql, $pdo);
         }
         $_SESSION["success"] = "success";
         header('Location: ./');
         exit;
-    } else if (isset($_POST['delete']) && $_POST['stknum'] != "") {
+    } else if (isset($_POST['delete']) && $_POST['num'] != "") {
         // ファイル削除
         if (file_exists($_POST['imageurl'])) {
             unlink($_POST['imageurl']);
@@ -82,7 +79,7 @@ function submit_recieve()
 
         // DB削除
         $pdo = db_access();
-        $sql = "DELETE FROM stockphoto WHERE stockphoto.num = '" . $_POST['stknum'] . "';";
+        $sql = "DELETE FROM kana_tweet WHERE kana_tweet.num = '" . $_POST['num'] . "';";
         db_prepare_sql($sql, $pdo);
         $_SESSION["success"] = "delete";
         header('Location: ./');
@@ -113,47 +110,5 @@ function un_enc($str)
     $str = htmlspecialchars_decode($str);
     return $str;
 }
-
-function db_item_show($category = null)
-{
-    $pdo = db_access();
-    $query = "SELECT item FROM stockphoto WHERE category = '" . $category . "';";
-    $result = db_prepare_sql($query, $pdo);
-    db_close($pdo);
-
-    foreach ($result as $row) {
-        echo nl2br(un_enc($row['item']));
-    }
-}
-
-function db_itembox_show($category, $maxitem)
-{
-    $pdo = db_access();
-    $query = "SELECT * FROM stockphoto WHERE category = '$category' LIMIT $maxitem;";
-    $result = db_prepare_sql($query, $pdo);
-    db_close($pdo);
-
-    foreach ($result as $row) {
-        $text = preg_replace('/^\r\n/m', '', (nl2br(un_enc($row['item']))));
-        $text = strip_tags($text);
-        echo "
-        <div class='itembox'>
-        <img src='./stock_images/" . nl2br(un_enc($row['imageurl'])) . "' alt='' />
-        <p class='title'><a id='item".$row['num']."' tabindex='-1'>" . nl2br(un_enc($row['title'])) . "</a></p>
-        <p class='edittime'>" . nl2br(un_enc($row['updatetime'])) . "</p>
-        <p class='item'>" . $text . "</p>
-        </div>";
-    }
-}
-
-function db_images_show()
-{
-    $pdo = db_access();
-    $query = "SELECT imageurl FROM stockphoto WHERE category = 'stockphoto' LIMIT 8;";
-    $result = db_prepare_sql($query, $pdo);
-    db_close($pdo);
-
-    foreach ($result as $row) {
-        echo "<img src='stock_images/" . $row['imageurl'] . "' alt=''>";
-    }
-}
+?>
+<!-- EOF -->

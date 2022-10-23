@@ -3,8 +3,8 @@ function show_calender()
 {
     $year = date('Y');
     $month = date('m');
-    $startDate = get_beginning_month_date($year , $month);
-    $endDate = get_ending_month_date($year , $month);
+    $startDate = get_beginning_month_date($year, $month);
+    $endDate = get_ending_month_date($year, $month);
 
     echo "<div class='calender_box'>";
     show_calender_header();
@@ -12,8 +12,9 @@ function show_calender()
     echo "</div>";
 }
 
-function show_navigation(){
-echo "<nav>
+function show_navigation()
+{
+    echo "<nav>
 <a class='navbt nav01'>豊田北高校</a>
 <a class='navbt nav02'>豊田西高校</a>
 <a class='navbt nav03'>豊田東高校</a>
@@ -78,3 +79,7 @@ function show_calender_header()
 <div class='calender_th'>日</div>
 <br clear='all' />";
 }
+
+?>
+
+<!-- EOF -->

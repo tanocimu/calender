@@ -26,3 +26,7 @@ define('DB_USERNAME', 'weweweb');
 define('DB_PASSWORD', 'P00027511wy3');
 //データベース文字コード設定
 define('DB_CHARSET', false);
+
+?>
+
+<!-- EOF -->

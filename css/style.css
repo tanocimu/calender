@@ -6,8 +6,17 @@
     width: 100%;
 }
 
-body{
+body {
     background: #EDE7F6;
+}
+
+h1{
+    width: 100%;
+    text-align: center;
+    font-family: "Nikukyu";
+    font-size: 37px;
+    color: rgb(236, 64, 122);
+    height: 80px;
 }
 
 .calender_box {
@@ -94,7 +103,7 @@ a.navbt {
     background: #000;
 }
 
-footer{
+footer {
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -102,47 +111,54 @@ footer{
     background: #000;
 }
 
-footer a{
+footer a {
     position: absolute;
     display: block;
     width: 37px;
     height: 37px;
-    top:16px;
+    top: 16px;
     float: left;
     text-indent: -9999px;
 }
 
-footer a:active{
+footer a:active {
     animation-name: punipuni;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
 }
 
-footer a.icon_home{
-    left:50px;
-    background: url(../parts/home.png);
-    background-size: contain;   
+footer a.icon_home {
+    left: calc(20% - 15px);
+    background: url(../parts/home.png) no-repeat center;
+    background-size: 30px 30px;
 }
 
-footer a.icon_calender{
-    left:120px;
-    background: url(../parts/calender.png);
-    background-size: contain;   
+footer a.icon_calender {
+    left: calc(40% - 15px);
+    background: url(../parts/calender.png) no-repeat center;
+    background-size: 30px 30px;
 }
 
-footer a.icon_key{
-    left:190px;
-    background: url(../parts/key.png);
-    background-size: contain;   
+footer a.icon_key {
+    left: calc(60% - 15px);
+    background: url(../parts/key.png) no-repeat center;
+    background-size: 30px 30px;
+}
+
+footer a.icon_plus{
+    left: calc(80% - 15px);
+    background: url(../parts/plus.png) no-repeat center;
+    background-size: 30px 30px;
 }
 
 @keyframes punipuni {
-	0% {
-		transform: scale(1, 1);
+    0% {
+        transform: scale(1, 1);
         -webkit-transform: scale(1, 1);
-	}
-	50% {
-		transform: scale(0.97, 1.17);
+    }
+
+    50% {
+        transform: scale(0.97, 1.17);
         -webkit-transform: scale(0.97, 1.17);
-	}
+    }
 }
