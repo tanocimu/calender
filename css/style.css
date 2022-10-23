@@ -4,13 +4,16 @@
     margin: 0;
     font-family: "M PLUS 1p";
     width: 100%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
 body {
     background: #EDE7F6;
 }
 
-h1{
+h1 {
     width: 100%;
     text-align: center;
     font-family: "Nikukyu";
@@ -72,6 +75,12 @@ h1{
 
 .thismonth {
     background: rgb(120, 144, 156);
+}
+
+.working {
+    background-color: rgb(3, 169, 244);
+    border:1px solid rgb(1, 87, 155);
+    color: #fff;
 }
 
 nav {
@@ -145,7 +154,7 @@ footer a.icon_key {
     background-size: 30px 30px;
 }
 
-footer a.icon_plus{
+footer a.icon_plus {
     left: calc(80% - 15px);
     background: url(../parts/plus.png) no-repeat center;
     background-size: 30px 30px;

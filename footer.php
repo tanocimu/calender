@@ -1,6 +1,6 @@
 <footer>
     <a href="index.php" class="icon_home">avv</a>
-    <a href="#" class="icon_calender">geg</a>
+    <a href="calender.php" class="icon_calender">geg</a>
     <a href="login.php" class="icon_key">a</a>
     <?php
     if (login()) {

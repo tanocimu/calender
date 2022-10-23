@@ -19,3 +19,16 @@ function modal_close() {
     modal_bool = false;
     overlay.style.display = 'none';
 }
+
+// schedule
+let select_state = document.querySelector("select[name=category]");
+select_state.addEventListener('change', function () {
+
+    if (select_state.value == "calenderhigashi") {
+        console.log(select_state.value);
+
+        var elem = document.getElementById('tweet_form');
+
+
+    }
+});
