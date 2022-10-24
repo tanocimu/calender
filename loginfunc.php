@@ -92,7 +92,7 @@ function take_submit()
             setcookie("PHPSESSID", '', time() - 1800, '/');
         }
         session_destroy();
-        header('Location: ./');
+        header('Location: ./login.php');
         exit;
     }
 

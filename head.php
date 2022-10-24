@@ -38,11 +38,10 @@ submit_recieve();
     <div id="picker_overlay" class="picker_overlay">
         <div class='picker_box'>
             <div class='picker_year'>
-                <a id="year_previous">
-                    <　　　< /a>
-                        <a id="year">2022</a>
-                        <a id="year_next">　　　></a>
-                        <a id="picker_cancel">×</a>
+                <a id="year_previous">&lt;&nbsp;&nbsp;&nbsp;</a>
+                <a id="year">2022</a>
+                <a id="year_next">&nbsp;&nbsp;&nbsp;&gt;</a>
+                <a id="picker_cancel">&times;</a>
             </div>
             <div id='picker_month' class='picker_month'>
                 <a id="m01">1月</a>

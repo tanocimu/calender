@@ -5,7 +5,7 @@ let year = document.getElementById('year');
 let yearmonth_text = "";
 let picker_month_box = document.getElementById('picker_month');
 let picker_day_box = document.getElementById('picker_day');
-let json_array = "";
+let json_array;
 let picker_overlay = document.getElementById('picker_overlay');
 let text_form = document.getElementById('item');
 const tweet_picker_show = document.getElementById('tweet_picker_show');
@@ -13,7 +13,8 @@ const tweet_picker_show = document.getElementById('tweet_picker_show');
 document.addEventListener("click", (e) => {
     let pattern = /^icon_plus/;
     let cancel = /^cancel/;
-    let picker_month = /^m[0-9]{2,2}/;
+    let picker_month = /^m[0-9]{1,2}/;
+    let picker_day = /^d[0-9]{8,8}/;
 
     if (pattern.test(e.target.id)) {
         modal_show(e);
@@ -24,7 +25,8 @@ document.addEventListener("click", (e) => {
     } else if (picker_month.test(e.target.id)) {
         let month = e.target.id.slice(1, 3);
         date_picker(year.textContent, month);
-
+    } else if (picker_day.test(e.target.id)) {
+        pickerdaycolor_change(e.target.id);
     } else if (e.target.id == 'year_next') {
         year.textContent = parseInt(year.textContent) + 1;
     } else if (e.target.id == 'year_previous') {
@@ -32,13 +34,29 @@ document.addEventListener("click", (e) => {
     } else if (e.target.id == 'picker_input') {
         picker_overlay_close();
         text_form.value = "";
-        text_form.value = json_array;
+        text_form.value = JSON.stringify(json_array);   
     } else if (e.target.id == 'tweet_picker_show') {
         if (select_state.value == 'calenderhigashi' || select_state.value == 'calenderkita' || select_state.value == 'calendernishi') {
             picker_overlay_open();
         }
     }
 });
+
+function pickerdaycolor_change(targetid) {
+    let day_elem = document.getElementById(targetid);
+    var day = targetid.slice(7, 9);
+    if (yearmonth_text == targetid.slice(1, 7) && !day_elem.hasAttribute('alt')) {
+        Object.assign(json_array["workingday"], { [day]: 1 });
+
+        day_elem.style.backgroundColor = "rgb(3, 169, 244)";
+        day_elem.setAttribute('alt', '1');
+    } else {
+        delete json_array["workingday"][day];
+
+        day_elem.style.backgroundColor = "#fdecff";
+        day_elem.removeAttribute('alt');
+    }
+}
 
 function modal_show(e) {
     overlay.style.display = 'block';
@@ -74,34 +92,6 @@ function picker_overlay_close() {
     picker_day_box.style.display = "none";
 }
 
-function month_picker() {
-    var picker = document.createElement('div');
-    picker.id = 'picker_box';
-    picker.className = 'picker_box';
-    picker.innerHTML = `
-        <div class='picker_year'>
-            <a id="year_previous"><　　　</a>
-            <a id="year">2022</a>
-            <a id="year_next">　　　></a>
-            <a id="picker_cancel">×</a>
-        </div>
-        <div class='picker_month'>
-            <a id="m01">1月</a>
-            <a id="m02">2月</a>
-            <a id="m03">3月</a>
-            <a id="m04">4月</a>
-            <a id="m05">5月</a>
-            <a id="m06">6月</a>
-            <a id="m07">7月</a>
-            <a id="m08">8月</a>
-            <a id="m09">9月</a>
-            <a id="m10">10月</a>
-            <a id="m11">11月</a>
-            <a id="m12">12月</a>
-        </div>`;
-    return picker;
-}
-
 function date_picker(year, month) {
     let end = new Date(year, month, 0);
     let begin = new Date(year, month - 1, 1);
@@ -119,14 +109,15 @@ function date_picker(year, month) {
         inmonth = date.getMonth() + 1;
         inday = date.getDate();
         inbegin = String(inmonth) + String(inday);
-        html += "<a id='d" + inday + "'>" + inday + "</a>";
+        yearmonthday = String(year) + String('000' + inmonth).slice(-2) + String('000' + inday).slice(-2);
+        html += "<a id='d" + yearmonthday + "'>" + inday + "</a>";
         if (inbegin == inend) break;
         date.setDate(inday + 1);
     }
     html += "<a id='picker_input' class='picker_input'>カレンダー作成</a>";
 
     json_array = make_jsonarray(month);
-
+    yearmonth_text = String(year) + String('000' + month).slice(-2);
     picker_month_box.style.display = "none";
 
     picker_day_box.innerHTML = html;
@@ -168,8 +159,7 @@ function get_endSunday(target_date) {
 
 function make_jsonarray(month) {
     json = `{"year":"` + year.textContent + `","month":"` + month + `","workingday":{},"target":"` + select_category + `"}`;
-    console.log(json);
-    return json;
+    return JSON.parse(json);
 }
 
 text_form.addEventListener('focus', () => {
