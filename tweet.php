@@ -7,6 +7,7 @@ function show_tweet($category, $maxitem)
     db_close($pdo);
 
     foreach ($result as $row) {
+        $num = $row['num'];
         $usericon = icon_get($row['author']);
         $text = preg_replace('/^\r\n/m', '', (nl2br(un_enc($row['item']))));
         $text = strip_tags($text);
@@ -14,21 +15,22 @@ function show_tweet($category, $maxitem)
         <div class='tweet_box'>
         <div class='user_info'>
         <img src='./images/" . nl2br(un_enc($usericon)) . "' class='usericon' />
-        <label class='username'>{$row['author']}</label>
+        <label class='edit_cat' id='cat$num'>{$row['category']}</label>
+        <label class='username' id='aut$num'>{$row['author']}</label>
         ";
 
         if (login()) {
-            echo " <a id='edit' class='edit'>…</a>";
+            echo "<a id='edit$num' class='edit'>…</a>";
         }
 
         echo "
         </div>
-        <p class='text'>{$text}</p>
+        <p class='text' id='text$num'>{$text}</p>
         ";
 
         if ($row['imageurl'] != "") {
             echo "
-        <img src='./images/" . nl2br(un_enc($row['imageurl'])) . "' />
+        <img src='./images/" . nl2br(un_enc($row['imageurl'])) . "' id='img$num' />
         ";
         }
 

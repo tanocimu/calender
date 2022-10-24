@@ -52,6 +52,10 @@
     font-weight: bold;
 }
 
+.edit_cat{
+    display: none;
+}
+
 .tweet_form {
     color: #37474F;
     position: fixed;

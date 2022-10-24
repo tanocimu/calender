@@ -67,6 +67,8 @@ function submit_recieve()
             $sql = "INSERT INTO kana_tweet (num, category, item, imageurl, author, updatetime) VALUES (NULL, '{$_POST['category']}', '{$item}', '{$imageurl}', '{$_POST['author']}', current_timestamp());";
             db_prepare_sql($sql, $pdo);
         } else {
+            $sql = "UPDATE kana_tweet SET item = '{$item}',imageurl = '{$imageurl}', updatetime = current_timestamp() WHERE kana_tweet.num = {$_POST['num']};";
+            db_prepare_sql($sql, $pdo);
         }
         $_SESSION["success"] = "success";
         header('Location: ./');

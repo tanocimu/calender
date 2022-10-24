@@ -15,6 +15,7 @@ document.addEventListener("click", (e) => {
     let cancel = /^cancel/;
     let picker_month = /^m[0-9]{1,2}/;
     let picker_day = /^d[0-9]{8,8}/;
+    let edit = /^edit[0-9]{1,4}/;
 
     if (pattern.test(e.target.id)) {
         modal_show(e);
@@ -34,11 +35,13 @@ document.addEventListener("click", (e) => {
     } else if (e.target.id == 'picker_input') {
         picker_overlay_close();
         text_form.value = "";
-        text_form.value = JSON.stringify(json_array);   
+        text_form.value = JSON.stringify(json_array);
     } else if (e.target.id == 'tweet_picker_show') {
         if (select_state.value == 'calenderhigashi' || select_state.value == 'calenderkita' || select_state.value == 'calendernishi') {
             picker_overlay_open();
         }
+    } else if (edit.test(e.target.id)) {
+        modal_show_edit(e);
     }
 });
 
@@ -59,6 +62,20 @@ function pickerdaycolor_change(targetid) {
 }
 
 function modal_show(e) {
+    overlay.style.display = 'block';
+    modal_bool = true;
+}
+
+function modal_show_edit(e) {
+    itemnum = e.target.id.slice(4, 7);
+    document.getElementById('num').value = itemnum;
+    document.getElementById('submit').textContent = "変更する";
+    document.getElementById('category').disabled = true;
+    document.getElementById('item').innerHTML = document.getElementById('text' + itemnum).innerHTML;
+
+     //document.getElementById('category').selectedIndex = 0; //
+    // = ('img' + itemnum).getAttribute('src');
+
     overlay.style.display = 'block';
     modal_bool = true;
 }
