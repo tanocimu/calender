@@ -9,7 +9,7 @@ function show_calender($target, $maxitem)
     foreach ($result as $row) {
         $usericon = icon_get($row['author']);
         $jsonandrow = $row;
-        $json = json_decode($jsonandrow['item'], true);
+        $json = json_decode(un_enc($jsonandrow['item']), true);
 
         $workingdays = $json['workingday'];
         $year = $json['year'];
@@ -23,6 +23,13 @@ function show_calender($target, $maxitem)
     <div class='user_info'>
         <img src='./images/{$usericon}' class='usericon' />
         <label class='username'>{$row['author']}</label>
+        ";
+
+        if (login()) {
+            echo " <a id='edit' class='edit'>…</a>";
+        }
+
+        echo "
     </div>
     <p class='text'>{$targetname}の{$month}月の購買スケジュール
     </p>

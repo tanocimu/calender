@@ -15,6 +15,13 @@ function show_tweet($category, $maxitem)
         <div class='user_info'>
         <img src='./images/" . nl2br(un_enc($usericon)) . "' class='usericon' />
         <label class='username'>{$row['author']}</label>
+        ";
+
+        if (login()) {
+            echo " <a id='edit' class='edit'>…</a>";
+        }
+
+        echo "
         </div>
         <p class='text'>{$text}</p>
         ";
@@ -55,13 +62,14 @@ function show_tweet_form()
     <div id='tweet_form' class='tweet_form'>
     <img src='./images/$usericon' class='form_usericon' />
     <form id='form' method='post' action='index.php' enctype='multipart/form-data'>
+        <a id='tweet_picker_show' class='tweet_picker_show'>カレンダー</a>
         <input id='num' type='hidden' name='num' value=''>
         <input id='author' type='hidden' name='author' value='$author'>
         <select name='category' id='category'>
             <option value='tweet'>おしらせ</option>
             <option value='calenderkita'>豊田北高校</option>
             <option value='calenderhigashi'>豊田東高校</option>
-            <option value='calenderminami'>豊田西高校</option>
+            <option value='calendernishi'>豊田西高校</option>
         </select>
         <textarea id='item' type='text' name='item' value='' placeholder='何かつぶやこう！' ></textarea>
         <input class='inputimage' id='image' type='file' name='image[]' accept='image/*'>

@@ -7,7 +7,7 @@
         echo "<a class='icon_plus' id='icon_plus'>a</a>";
     } ?>
 </footer>
-<script src="./function.js"></script>
+<script src="./js/function.js"></script>
 </body>
 
 </html>
