@@ -8,6 +8,13 @@ function show_calender($target, $maxitem)
     $jsonandrow = "";
     foreach ($result as $row) {
         $num = $row['num'];
+        $private = $row['privatepublic'];
+        if (login() != true) {
+            if ($private != true) {
+                continue;
+            }
+        }
+
         $usericon = icon_get($row['author']);
         $jsonandrow = $row;
         $json = json_decode(un_enc($jsonandrow['item']), true);
@@ -24,6 +31,7 @@ function show_calender($target, $maxitem)
     <div class='user_info'>
         <img src='./images/{$usericon}' class='usericon' />
         <label class='edit_cat' id='cat$num'>{$row['category']}</label>
+        <label class='edit_private' id='prv$num'>{$row['privatepublic']}</label>
         <label class='username' id='aut$num'>{$row['author']}</label>
         ";
 

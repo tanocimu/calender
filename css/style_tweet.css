@@ -52,8 +52,25 @@
     font-weight: bold;
 }
 
-.edit_cat{
+.edit_cat {
     display: none;
+}
+
+.edit_private {
+    display: none;
+}
+
+.delete{
+    position:absolute;
+    bottom: 0;
+    height: 50px;
+    line-height: 50px;
+    background: #f84545;
+    color: #ffffff;
+}
+
+.tweet_private{
+    background-color: rgb(201, 201, 201);
 }
 
 .tweet_form {
@@ -102,7 +119,7 @@
 }
 
 
-.tweet_form select {
+.tweet_form select#category {
     position: absolute;
     top: 60px;
     left: 60px;
@@ -114,7 +131,21 @@
     box-sizing: border-box;
 }
 
-.tweet_picker_show{
+.tweet_form select#privatepublic{
+    position: absolute;
+    color:#ffffff;
+    top: 60px;
+    right: 10px;
+    border: solid rgb(204, 68, 109) 1px;
+    background: #ff80bb;
+    width: 100px;
+    height: 26px;
+    border-radius: 13px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.tweet_picker_show {
     text-indent: -9999px;
     display: none;
     position: absolute;
@@ -169,4 +200,37 @@
     background: #f7f3ff;
     font-weight: bold;
     border-radius: 50%;
+}
+
+#preview {
+    display: block;
+    position: absolute;
+    top: calc(50% + 50px);
+    left: 140px;
+    width: 250px;
+    height: 250px;
+    padding-bottom: 20px;
+    margin: auto;
+}
+
+#preview img {
+    width: 250px;
+    height: 250px;
+    object-fit: contain;
+    background: #555;
+}
+
+#preview button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 27px;
+    width: 27px;
+    font-size: 30px;
+    text-align: center;
+    line-height: 27px;
+}
+
+#preview button:hover {
+    opacity: 0.7;
 }

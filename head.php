@@ -31,6 +31,7 @@ submit_recieve();
     <link href="https://fonts.googleapis.com/earlyaccess/nikukyu.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/style_tweet.css">
+    <link rel="stylesheet" href="./css/login.css">
     <link rel="stylesheet" href="./css/picker.css">
 </head>
 

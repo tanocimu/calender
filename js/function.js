@@ -42,6 +42,8 @@ document.addEventListener("click", (e) => {
         }
     } else if (edit.test(e.target.id)) {
         modal_show_edit(e);
+    } else if (e.target.id == "btn") {
+        resetPreview();
     }
 });
 
@@ -67,13 +69,22 @@ function modal_show(e) {
 }
 
 function modal_show_edit(e) {
+    var btelem = document.createElement('button');
+    btelem.className = 'delete';
+    btelem.id = 'delete';
+    btelem.value = 'delete';
+    btelem.name = 'delete';
+    btelem.innerText = '削除';
+    document.getElementById('form').appendChild(btelem);
+
     itemnum = e.target.id.slice(4, 7);
     document.getElementById('num').value = itemnum;
     document.getElementById('submit').textContent = "変更する";
     document.getElementById('category').disabled = true;
     document.getElementById('item').innerHTML = document.getElementById('text' + itemnum).innerHTML;
+    document.getElementById('privatepublic').selectedIndex = document.getElementById('prv' + itemnum).innerHTML;
 
-     //document.getElementById('category').selectedIndex = 0; //
+    //document.getElementById('category').selectedIndex = 0; //
     // = ('img' + itemnum).getAttribute('src');
 
     overlay.style.display = 'block';
@@ -185,4 +196,29 @@ text_form.addEventListener('focus', () => {
 
 text_form.addEventListener('blur', () => {
 
+});
+
+function resetPreview() {
+    var element = document.getElementById("preview");
+    while (element.firstChild) {
+        element.removeChild(element.firstChild);
+    }
+}
+
+document.getElementById('image').addEventListener('change', function (e) {
+    resetPreview();
+    var elem = document.getElementById('preview');
+    elem.style.display = "block";
+    for (var num in e.target.files) {
+        var file = e.target.files[num];
+        var blobUrl = window.URL.createObjectURL(file);
+        var img = new Image();
+        img.src = blobUrl;
+        elem.appendChild(img);
+
+        var button = document.createElement('button');
+        button.id = "btn";
+        button.textContent = "×";
+        elem.appendChild(button);
+    }
 });

@@ -8,14 +8,27 @@ function show_tweet($category, $maxitem)
 
     foreach ($result as $row) {
         $num = $row['num'];
+        $private = $row['privatepublic'];
+        if (login() != true) {
+            if ($private != true) {
+                continue;
+            }
+        }
+
+        $private_color = "";
+        if ($private != true) {
+            $private_color = "tweet_private";
+        }
+
         $usericon = icon_get($row['author']);
         $text = preg_replace('/^\r\n/m', '', (nl2br(un_enc($row['item']))));
         $text = strip_tags($text);
         echo "
-        <div class='tweet_box'>
+        <div class='tweet_box $private_color'>
         <div class='user_info'>
         <img src='./images/" . nl2br(un_enc($usericon)) . "' class='usericon' />
         <label class='edit_cat' id='cat$num'>{$row['category']}</label>
+        <label class='edit_private' id='prv$num'>{$row['privatepublic']}</label>
         <label class='username' id='aut$num'>{$row['author']}</label>
         ";
 
@@ -73,13 +86,16 @@ function show_tweet_form()
             <option value='calenderhigashi'>豊田東高校</option>
             <option value='calendernishi'>豊田西高校</option>
         </select>
+        <select name='privatepublic' id='privatepublic'>
+            <option value='0'>非公開</option>
+            <option value='1' selected>公開</option>
+        </select>
         <textarea id='item' type='text' name='item' value='' placeholder='何かつぶやこう！' ></textarea>
         <input class='inputimage' id='image' type='file' name='image[]' accept='image/*'>
         <input id='imageurl' type='hidden' name='imageurl'>
         <div id='preview'></div>
         <button class='submit' id='submit' name='submit' value='submit'>投稿する</button>
         <button class='cancel' id='cancel' name='cancel' value='cancel'>キャンセル</button>
-      <!-- <button class='delete' id='delete' name='delete' value='delete'>削除</button> -->
     </form>
 </div>
 ";

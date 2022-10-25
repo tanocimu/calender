@@ -64,10 +64,10 @@ function submit_recieve()
 
         // stk_num空なら記事を新規作成、あればその番号の記事を更新
         if ($_POST['num'] == "") {
-            $sql = "INSERT INTO kana_tweet (num, category, item, imageurl, author, updatetime) VALUES (NULL, '{$_POST['category']}', '{$item}', '{$imageurl}', '{$_POST['author']}', current_timestamp());";
+            $sql = "INSERT INTO kana_tweet (num, category, item, imageurl, author, privatepublic, updatetime) VALUES (NULL, '{$_POST['category']}', '{$item}', '{$imageurl}', '{$_POST['author']}', '{$_POST['privatepublic']}', current_timestamp());";
             db_prepare_sql($sql, $pdo);
         } else {
-            $sql = "UPDATE kana_tweet SET item = '{$item}',imageurl = '{$imageurl}', updatetime = current_timestamp() WHERE kana_tweet.num = {$_POST['num']};";
+            $sql = "UPDATE kana_tweet SET item = '{$item}',imageurl = '{$imageurl}', privatepublic = '{$_POST['privatepublic']}', updatetime = current_timestamp() WHERE kana_tweet.num = {$_POST['num']};";
             db_prepare_sql($sql, $pdo);
         }
         $_SESSION["success"] = "success";

@@ -93,7 +93,7 @@ function take_submit()
         }
         session_destroy();
         header('Location: ./login.php');
-        exit;
+        exit();
     }
 
     if (isset($_POST['iconchange']) && !empty($_FILES['image']['tmp_name'][0])) {
@@ -113,7 +113,7 @@ function take_submit()
         $_SESSION["success"] = "success";
 
         header('Location: ./login.php');
-        exit;
+        exit();
     }
 }
 
