@@ -24,7 +24,7 @@ submit_recieve();
 
     <meta name="robots" content="noindex">
 
-    <title>かんなのこうばい</title>
+    <title><?php echo SITE_NAME; ?></title>
 
     <link rel="stylesheet" href="./css/reset.css">
     <link href="https://fonts.googleapis.com/css?family=M+PLUS+1p" rel="stylesheet">

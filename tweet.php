@@ -76,15 +76,15 @@ function show_tweet_form()
     echo "
     <div id='tweet_form' class='tweet_form'>
     <img src='./images/$usericon' class='form_usericon' />
-    <form id='form' method='post' action='index.php' enctype='multipart/form-data'>
+    <form id='form' method='post' action='" . $_SERVER['REQUEST_URI'] . "' enctype='multipart/form-data'>
         <a id='tweet_picker_show' class='tweet_picker_show'>カレンダー</a>
         <input id='num' type='hidden' name='num' value=''>
         <input id='author' type='hidden' name='author' value='$author'>
         <select name='category' id='category'>
-            <option value='tweet'>おしらせ</option>
-            <option value='calenderkita'>豊田北高校</option>
-            <option value='calenderhigashi'>豊田東高校</option>
-            <option value='calendernishi'>豊田西高校</option>
+            <option value='0'>おしらせ</option>
+            <option value='1'>豊田北高校</option>
+            <option value='2'>豊田東高校</option>
+            <option value='3'>豊田西高校</option>
         </select>
         <select name='privatepublic' id='privatepublic'>
             <option value='0'>非公開</option>

@@ -10,6 +10,11 @@ let picker_overlay = document.getElementById('picker_overlay');
 let text_form = document.getElementById('item');
 const tweet_picker_show = document.getElementById('tweet_picker_show');
 
+// schedule
+let select_state = document.querySelector("select[name=category]");
+var select_category = "";
+var json_category = { 1: "豊田北高校", 2: "豊田東高校", 3: "豊田西高校" }
+
 document.addEventListener("click", (e) => {
     let pattern = /^icon_plus/;
     let cancel = /^cancel/;
@@ -37,7 +42,7 @@ document.addEventListener("click", (e) => {
         text_form.value = "";
         text_form.value = JSON.stringify(json_array);
     } else if (e.target.id == 'tweet_picker_show') {
-        if (select_state.value == 'calenderhigashi' || select_state.value == 'calenderkita' || select_state.value == 'calendernishi') {
+        if (select_state.value == '1' || select_state.value == '2' || select_state.value == '3') {
             picker_overlay_open();
         }
     } else if (edit.test(e.target.id)) {
@@ -80,12 +85,35 @@ function modal_show_edit(e) {
     itemnum = e.target.id.slice(4, 7);
     document.getElementById('num').value = itemnum;
     document.getElementById('submit').textContent = "変更する";
-    document.getElementById('category').disabled = true;
+    categoryelem = document.getElementById('category');
+    //categoryelem.disabled = true;
+    var category = { 'tweet': 0, 'calenderkita': 1, 'calenderhigashi': 2, 'calendernishi': 3 };
+    categorynum = document.getElementById('cat' + itemnum).innerHTML;
+    categoryelem.selectedIndex = category[categorynum];
+
     document.getElementById('item').innerHTML = document.getElementById('text' + itemnum).innerHTML;
     document.getElementById('privatepublic').selectedIndex = document.getElementById('prv' + itemnum).innerHTML;
 
-    //document.getElementById('category').selectedIndex = 0; //
-    // = ('img' + itemnum).getAttribute('src');
+    var imagenum = 'img' + itemnum;
+    var imageelem = document.getElementById(imagenum);
+
+    if (imageelem) {
+        var imageurl = imageelem.getAttribute('src');
+        var elem = document.getElementById('preview');
+        elem.style.display = "block";
+        var img = new Image();
+        img.src = imageurl;
+        elem.appendChild(img);
+
+        var button = document.createElement('button');
+        button.id = "btn";
+        button.textContent = "×";
+        elem.appendChild(button);
+    }
+
+    if (select_state.value == '1' || select_state.value == '2' || select_state.value == '3') {
+        tweet_picker_show.style.display = "block";
+    }
 
     overlay.style.display = 'block';
     modal_bool = true;
@@ -96,14 +124,10 @@ function modal_close() {
     overlay.style.display = 'none';
 }
 
-// schedule
-let select_state = document.querySelector("select[name=category]");
-var select_category = "";
-var json_category = { calenderhigashi: "豊田東高校", calenderkita: "豊田北高校", calendernishi: "豊田西高校" }
 select_state.addEventListener('change', function () {
     select_category = json_category[select_state.value];
 
-    if (select_state.value == 'calenderhigashi' || select_state.value == 'calenderkita' || select_state.value == 'calendernishi') {
+    if (select_state.value == '1' || select_state.value == '2' || select_state.value == '3') {
         tweet_picker_show.style.display = "block";
     } else {
         tweet_picker_show.style.display = "none";

@@ -49,6 +49,7 @@ function db_prepare_sql(string $sql, $pdo)
 
 function submit_recieve()
 {
+    $category = array('tweet', 'calenderkita', 'calenderhigashi', 'calendernishi');
     if (isset($_POST['submit']) != "" && $_POST['item'] != "") {
         $pdo = db_access();
         $imageurl = "";
@@ -63,15 +64,25 @@ function submit_recieve()
         }
 
         // stk_num空なら記事を新規作成、あればその番号の記事を更新
+        $categorynum = $_POST['category'];
         if ($_POST['num'] == "") {
-            $sql = "INSERT INTO kana_tweet (num, category, item, imageurl, author, privatepublic, updatetime) VALUES (NULL, '{$_POST['category']}', '{$item}', '{$imageurl}', '{$_POST['author']}', '{$_POST['privatepublic']}', current_timestamp());";
+            $sql = "INSERT INTO kana_tweet (num, category, item, imageurl, author, privatepublic, updatetime) VALUES (NULL, '{$category[$categorynum]}', '{$item}', '{$imageurl}', '{$_POST['author']}', '{$_POST['privatepublic']}', current_timestamp());";
             db_prepare_sql($sql, $pdo);
         } else {
-            $sql = "UPDATE kana_tweet SET item = '{$item}',imageurl = '{$imageurl}', privatepublic = '{$_POST['privatepublic']}', updatetime = current_timestamp() WHERE kana_tweet.num = {$_POST['num']};";
+            if ($imageurl != '') {
+                $sql = "UPDATE kana_tweet SET item = '{$item}',imageurl = '{$imageurl}', privatepublic = '{$_POST['privatepublic']}', updatetime = current_timestamp() WHERE kana_tweet.num = {$_POST['num']};";
+            } else {
+                $sql = "UPDATE kana_tweet SET item = '{$item}', privatepublic = '{$_POST['privatepublic']}', updatetime = current_timestamp() WHERE kana_tweet.num = {$_POST['num']};";
+            }
             db_prepare_sql($sql, $pdo);
         }
         $_SESSION["success"] = "success";
-        header('Location: ./');
+
+        if ($category[$categorynum] == 'tweet') {
+            header('Location: ./');
+        } else {
+            header('Location: ./calender.php');
+        }
         exit;
     } else if (isset($_POST['delete']) && $_POST['num'] != "") {
         // ファイル削除
@@ -80,11 +91,16 @@ function submit_recieve()
         }
 
         // DB削除
+        $categorynum = $_POST['category'];
         $pdo = db_access();
         $sql = "DELETE FROM kana_tweet WHERE kana_tweet.num = '" . $_POST['num'] . "';";
         db_prepare_sql($sql, $pdo);
         $_SESSION["success"] = "delete";
-        header('Location: ./');
+        if ($category[$categorynum] == 'tweet') {
+            header('Location: ./');
+        } else {
+            header('Location: ./calender.php');
+        }
         exit;
     }
     return;

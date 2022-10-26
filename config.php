@@ -2,6 +2,9 @@
 /**
  * パス設定
  */
+
+define('SITE_NAME', 'かんなのこうばい'); 
+
 //アプリケーションディレクトリ
 define('DIR_PATH', dirname(__FILE__).'/');
 //モデルディレクトリ
