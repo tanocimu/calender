@@ -33,7 +33,7 @@ function show_tweet($category, $maxitem)
         <label class='username' id='aut$num'>{$row['author']}</label>
         ";
 
-        if (login()) {
+        if (login() == $row['author']) {
             echo "<a id='edit$num' class='edit'>…</a>";
         }
 

@@ -15,11 +15,16 @@ function show_calender($target, $maxitem)
             }
         }
 
+        $private_color = "";
+        if ($private != true) {
+            $private_color = "tweet_private";
+        }
+
         $usericon = icon_get($row['author']);
         $jsonandrow = $row;
         $json = json_decode(un_enc($jsonandrow['item']), true);
 
-        echo "<div class='tweet_box'>
+        echo "<div class='tweet_box $private_color'>
         <div class='user_info'>
             <img src='./images/{$usericon}' class='usericon' />
             <label class='edit_cat' id='cat$num'>{$row['category']}</label>
@@ -27,7 +32,7 @@ function show_calender($target, $maxitem)
             <label class='username' id='aut$num'>{$row['author']}</label>
             ";
 
-        if (login()) {
+        if (login() == $row['author']) {
             echo "<a id='edit$num' class='edit'>…</a>";
         }
 

@@ -4,7 +4,7 @@ function login()
     if ($_SESSION['user_name'] == null) {
         return false;
     }
-    return true;
+    return $_SESSION['user_name'];
 }
 
 function show_login_form()
