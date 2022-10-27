@@ -21,6 +21,7 @@ document.addEventListener("click", (e) => {
     let picker_month = /^m[0-9]{1,2}/;
     let picker_day = /^d[0-9]{8,8}/;
     let edit = /^edit[0-9]{1,4}/;
+    let catshow = /^cat_show[0-9]{1,2}/;
 
     if (pattern.test(e.target.id)) {
         modal_show(e);
@@ -53,8 +54,24 @@ document.addEventListener("click", (e) => {
     } else if (e.target.id == 'calender_delete') {
         document.getElementById('item_calender').innerHTML = "";
         showCalenderIcon();
+    } else if (catshow.test(e.target.id)) {
+        calenderCategory_change(e.target.id);
     }
 });
+
+function calenderCategory_change(targetid) {
+    let catnum = targetid.slice(8, 9);
+
+    for (index = 1; index < 4; index++) {
+        if (catnum == index) {
+            document.getElementById('cat_content' + index).style.display = 'block';
+            document.getElementById('cat_show' + index).style.backgroundColor = "#fff5bb";
+        } else {
+            document.getElementById('cat_content' + index).style.display = 'none';
+            document.getElementById('cat_show' + index).style.backgroundColor = "#d6d2bc";
+        }
+    }
+}
 
 function pickerdaycolor_change(targetid) {
     let day_elem = document.getElementById(targetid);

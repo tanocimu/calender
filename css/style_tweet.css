@@ -1,4 +1,4 @@
-*{
+* {
     box-sizing: border-box;
 }
 
@@ -64,8 +64,8 @@
     display: none;
 }
 
-.delete{
-    position:absolute;
+.delete {
+    position: absolute;
     bottom: 0;
     height: 50px;
     line-height: 50px;
@@ -73,7 +73,7 @@
     color: #ffffff;
 }
 
-.tweet_private{
+.tweet_private {
     background-color: rgb(201, 201, 201);
 }
 
@@ -108,7 +108,7 @@
     background: rgb(241, 241, 241);
 }
 
-.tweet_form .calender_delete{
+.tweet_form .calender_delete {
     display: none;
     position: absolute;
     text-align: center;
@@ -153,9 +153,9 @@
     box-sizing: border-box;
 }
 
-.tweet_form select#privatepublic{
+.tweet_form select#privatepublic {
     position: absolute;
-    color:#ffffff;
+    color: #ffffff;
     top: 60px;
     right: 10px;
     border: solid rgb(204, 68, 109) 1px;
@@ -255,4 +255,53 @@
 
 #preview button:hover {
     opacity: 0.7;
+}
+
+.select_category_box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin-bottom: 2px;
+}
+
+.select_category_box a{
+    position: absolute;
+    line-height: 50px;
+    text-align: center;
+    display: block;
+    border-radius: 8px;
+    background: #d6d2bc;
+    box-sizing: border-box;
+    border:1px solid rgba(204, 203, 118, 0.867);
+}
+
+a#cat_show1{
+    width: 33%;
+    height: 50px;
+    left: 0;
+}
+
+
+a#cat_show2{
+    width: calc(34% - 4px);
+    height: 50px;
+    left: calc(33% + 2px);
+}
+
+a#cat_show3{
+    width: 33%;
+    height: 50px;
+    right: 0;
+}
+
+#cat_content1{
+    display: block;
+}
+
+#cat_content2{
+    display: block;
+}
+
+#cat_content3{
+    display: block;
 }
