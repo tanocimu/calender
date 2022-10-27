@@ -48,7 +48,9 @@ function show_tweet($category, $maxitem)
         ";
         }
 
+        $item_calender = $row['etc'];
         echo "
+        <div id='json$num' class='hide_json'>" . $item_calender . "</div>
         <label class='updatetime'>" . un_enc($row['updatetime']) . "</label>
         </div>";
     }
@@ -92,6 +94,7 @@ function show_tweet_form()
             <option value='1' selected>公開</option>
         </select>
         <textarea id='item' type='text' name='item' value='' placeholder='何かつぶやこう！' ></textarea>
+        <textarea id='item_calender' type='text' name='item_calender' value='' ></textarea>
         <input class='inputimage' id='image' type='file' name='image[]' accept='image/*'>
         <input id='imageurl' type='hidden' name='imageurl'>
         <div id='preview'></div>

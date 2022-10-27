@@ -22,6 +22,10 @@ h1 {
     height: 80px;
 }
 
+.hide_json{
+    display: none;
+}
+
 .calender_box {
     width: 100%;
     aspect-ratio: 1 / 1.1;

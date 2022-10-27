@@ -7,7 +7,7 @@ let picker_month_box = document.getElementById('picker_month');
 let picker_day_box = document.getElementById('picker_day');
 let json_array;
 let picker_overlay = document.getElementById('picker_overlay');
-let text_form = document.getElementById('item');
+let text_form = document.getElementById('item_calender');
 const tweet_picker_show = document.getElementById('tweet_picker_show');
 
 // schedule
@@ -91,9 +91,10 @@ function modal_show_edit(e) {
     categorynum = document.getElementById('cat' + itemnum).innerHTML;
     categoryelem.selectedIndex = category[categorynum];
 
-    document.getElementById('item').innerHTML = document.getElementById('text' + itemnum).innerHTML;
+    document.getElementById('item').innerHTML = document.getElementById('text' + itemnum).innerHTML.replace(/<br>/g, '');
     document.getElementById('privatepublic').selectedIndex = document.getElementById('prv' + itemnum).innerHTML;
 
+    document.getElementById('item_calender').innerHTML = document.getElementById('json' + itemnum).innerHTML;
     var imagenum = 'img' + itemnum;
     var imageelem = document.getElementById(imagenum);
 
@@ -213,14 +214,6 @@ function make_jsonarray(month) {
     json = `{"year":"` + year.textContent + `","month":"` + month + `","workingday":{},"target":"` + select_category + `"}`;
     return JSON.parse(json);
 }
-
-text_form.addEventListener('focus', () => {
-
-});
-
-text_form.addEventListener('blur', () => {
-
-});
 
 function resetPreview() {
     var element = document.getElementById("preview");
