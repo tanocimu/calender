@@ -53,10 +53,10 @@ function show_calender($target, $maxitem)
                     <div class='calender_box'>";
                 show_calender_header();
                 show_calender_date($startDate, $endDate, $targetMonth, $workingdays);
-                echo "</div><div id='json$num' class='hide_json'>" . $item_calender . "</div>";
+                echo "</div>";
             }
         }
-        echo "</div><label class='updatetime'>" . un_enc($row['updatetime']) . "</label></div>";
+        echo "<div id='json$num' class='hide_json'>" . $item_calender . "</div></div><label class='updatetime'>" . un_enc($row['updatetime']) . "</label></div>";
     }
 }
 

@@ -108,6 +108,20 @@
     background: rgb(241, 241, 241);
 }
 
+.tweet_form .calender_delete{
+    display: none;
+    position: absolute;
+    text-align: center;
+    color: #ffffff;
+    top: 60px;
+    left: 200px;
+    width: 70px;
+    height: 26px;
+    line-height: 26px;
+    border-radius: 13px;
+    background: rgb(231, 80, 20);
+}
+
 .tweet_form textarea#item {
     position: absolute;
     font-size: 16px;

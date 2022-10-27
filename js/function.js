@@ -38,9 +38,10 @@ document.addEventListener("click", (e) => {
     } else if (e.target.id == 'year_previous') {
         year.textContent = parseInt(year.textContent) - 1;
     } else if (e.target.id == 'picker_input') {
-        picker_overlay_close();
         text_form.value = "";
         text_form.value = JSON.stringify(json_array);
+        picker_overlay_close();
+        showCalenderIcon();
     } else if (e.target.id == 'tweet_picker_show') {
         if (select_state.value == '1' || select_state.value == '2' || select_state.value == '3') {
             picker_overlay_open();
@@ -49,6 +50,9 @@ document.addEventListener("click", (e) => {
         modal_show_edit(e);
     } else if (e.target.id == "btn") {
         resetPreview();
+    } else if (e.target.id == 'calender_delete') {
+        document.getElementById('item_calender').innerHTML = "";
+        showCalenderIcon();
     }
 });
 
@@ -74,7 +78,7 @@ function modal_show(e) {
 }
 
 function modal_show_edit(e) {
-    var btelem = document.createElement('button');
+    let btelem = document.createElement('button');
     btelem.className = 'delete';
     btelem.id = 'delete';
     btelem.value = 'delete';
@@ -95,12 +99,12 @@ function modal_show_edit(e) {
     document.getElementById('privatepublic').selectedIndex = document.getElementById('prv' + itemnum).innerHTML;
 
     document.getElementById('item_calender').innerHTML = document.getElementById('json' + itemnum).innerHTML;
-    var imagenum = 'img' + itemnum;
-    var imageelem = document.getElementById(imagenum);
+    let imagenum = 'img' + itemnum;
+    let imageelem = document.getElementById(imagenum);
 
     if (imageelem) {
-        var imageurl = imageelem.getAttribute('src');
-        var elem = document.getElementById('preview');
+        let imageurl = imageelem.getAttribute('src');
+        let elem = document.getElementById('preview');
         elem.style.display = "block";
         var img = new Image();
         img.src = imageurl;
@@ -118,6 +122,7 @@ function modal_show_edit(e) {
 
     overlay.style.display = 'block';
     modal_bool = true;
+    showCalenderIcon();
 }
 
 function modal_close() {
@@ -216,7 +221,7 @@ function make_jsonarray(month) {
 }
 
 function resetPreview() {
-    var element = document.getElementById("preview");
+    let element = document.getElementById("preview");
     while (element.firstChild) {
         element.removeChild(element.firstChild);
     }
@@ -224,7 +229,7 @@ function resetPreview() {
 
 document.getElementById('image').addEventListener('change', function (e) {
     resetPreview();
-    var elem = document.getElementById('preview');
+    let elem = document.getElementById('preview');
     elem.style.display = "block";
     for (var num in e.target.files) {
         var file = e.target.files[num];
@@ -239,3 +244,13 @@ document.getElementById('image').addEventListener('change', function (e) {
         elem.appendChild(button);
     }
 });
+
+function showCalenderIcon() {
+    let elem = document.getElementById('item_calender');
+    if (elem.value != "") {
+        document.getElementById('calender_delete').style.display = "block";
+    }
+    else {
+        document.getElementById('calender_delete').style.display = "none";
+    }
+}

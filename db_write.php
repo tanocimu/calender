@@ -72,11 +72,9 @@ function submit_recieve()
                 db_prepare_sql($sql, $pdo);
             } else {
                 if ($imageurl != '') {
-                    $sql = "UPDATE kana_tweet SET item = '{$item}',imageurl = '{$imageurl}', privatepublic = '{$_POST['privatepublic']}', updatetime = current_timestamp() WHERE kana_tweet.num = {$_POST['num']};";
-                } else if ($calender != '') {
-                    $sql = "UPDATE kana_tweet SET item = '{$item}', etc = '{$calender}', privatepublic = '{$_POST['privatepublic']}', updatetime = current_timestamp() WHERE kana_tweet.num = {$_POST['num']};";
+                    $sql = "UPDATE kana_tweet SET item = '{$item}', etc = '{$calender}',imageurl = '{$imageurl}', privatepublic = '{$_POST['privatepublic']}', updatetime = current_timestamp() WHERE kana_tweet.num = {$_POST['num']};";
                 } else {
-                    $sql = "UPDATE kana_tweet SET item = '{$item}', privatepublic = '{$_POST['privatepublic']}', updatetime = current_timestamp() WHERE kana_tweet.num = {$_POST['num']};";
+                    $sql = "UPDATE kana_tweet SET item = '{$item}', etc = '{$calender}', privatepublic = '{$_POST['privatepublic']}', updatetime = current_timestamp() WHERE kana_tweet.num = {$_POST['num']};";
                 }
                 db_prepare_sql($sql, $pdo);
             }
@@ -88,25 +86,25 @@ function submit_recieve()
                 header('Location: ./calender.php');
             }
             exit;
-        } else if (isset($_POST['delete']) && $_POST['num'] != "") {
-            // ファイル削除
-            if (file_exists($_POST['imageurl'])) {
-                unlink($_POST['imageurl']);
-            }
-
-            // DB削除
-            $categorynum = $_POST['category'];
-            $pdo = db_access();
-            $sql = "DELETE FROM kana_tweet WHERE kana_tweet.num = '" . $_POST['num'] . "';";
-            db_prepare_sql($sql, $pdo);
-            $_SESSION["success"] = "delete";
-            if ($category[$categorynum] == 'tweet') {
-                header('Location: ./');
-            } else {
-                header('Location: ./calender.php');
-            }
-            exit;
         }
+    } else if (isset($_POST['delete']) && $_POST['num'] != "") {
+        // ファイル削除
+        if (file_exists($_POST['imageurl'])) {
+            //     unlink($_POST['imageurl']);
+        }
+
+        // DB削除
+        $categorynum = $_POST['category'];
+        $pdo = db_access();
+        $sql = "DELETE FROM kana_tweet WHERE kana_tweet.num = '" . $_POST['num'] . "';";
+        db_prepare_sql($sql, $pdo);
+        $_SESSION["success"] = "delete";
+        if ($category[$categorynum] == 'tweet') {
+            header('Location: ./');
+        } else {
+            header('Location: ./calender.php');
+        }
+        exit;
     }
     return;
 }

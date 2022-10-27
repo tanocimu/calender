@@ -100,6 +100,7 @@ function show_tweet_form()
         <div id='preview'></div>
         <button class='submit' id='submit' name='submit' value='submit'>投稿する</button>
         <button class='cancel' id='cancel' name='cancel' value='cancel'>キャンセル</button>
+        <a class='calender_delete' id='calender_delete'>📅削除</a>
     </form>
 </div>
 ";
