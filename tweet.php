@@ -22,7 +22,7 @@ function show_tweet($category, $maxitem)
 
         $usericon = icon_get($row['author']);
         //$text = preg_replace('/^\r\n/m', '', (nl2br(un_enc($row['item']))));
-        $text = un_enc($row['item']);
+        $text = nl2br(un_enc($row['item']));
         //$text = strip_tags($text);
         echo "
         <div class='tweet_box $private_color'>
