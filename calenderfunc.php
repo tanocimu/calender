@@ -19,36 +19,40 @@ function show_calender($target, $maxitem)
         $jsonandrow = $row;
         $json = json_decode(un_enc($jsonandrow['item']), true);
 
-        $workingdays = $json['workingday'];
-        $year = $json['year'];
-        $month = $json['month'];
-        $targetname = $json['target'];
-        $startDate = get_beginning_month_date($year, $month);
-        $endDate = get_ending_month_date($year, $month);
-        $targetMonth = sprintf('%04d%02d', $year, $month);
-
         echo "<div class='tweet_box'>
-    <div class='user_info'>
-        <img src='./images/{$usericon}' class='usericon' />
-        <label class='edit_cat' id='cat$num'>{$row['category']}</label>
-        <label class='edit_private' id='prv$num'>{$row['privatepublic']}</label>
-        <label class='username' id='aut$num'>{$row['author']}</label>
-        ";
+        <div class='user_info'>
+            <img src='./images/{$usericon}' class='usericon' />
+            <label class='edit_cat' id='cat$num'>{$row['category']}</label>
+            <label class='edit_private' id='prv$num'>{$row['privatepublic']}</label>
+            <label class='username' id='aut$num'>{$row['author']}</label>
+            ";
 
         if (login()) {
             echo "<a id='edit$num' class='edit'>…</a>";
         }
 
-        echo "
-    </div>
-    <p class='text'>{$targetname}の{$month}月の購買スケジュール
-    </p>
-    <div class='calender_box' id='text$num'>";
-        show_calender_header();
-        show_calender_date($startDate, $endDate, $targetMonth, $workingdays);
-        echo "</div>
-    <label class='updatetime'>" . nl2br(un_enc($row['updatetime'])) . "</label>
-    </div>";
+        echo "</div>";
+
+        if ($json != null) {
+            $workingdays = $json['workingday'];
+            $year = $json['year'];
+            $month = $json['month'];
+            $targetname = $json['target'];
+            $startDate = get_beginning_month_date($year, $month);
+            $endDate = get_ending_month_date($year, $month);
+            $targetMonth = sprintf('%04d%02d', $year, $month);
+
+            echo "<div class='tweet_item' id='text$num'>{$targetname}の{$month}月の購買スケジュール                    
+                    <div class='calender_box'>";
+            show_calender_header();
+            show_calender_date($startDate, $endDate, $targetMonth, $workingdays);
+            echo "</div></div>";
+        } else {
+            $text = un_enc($row['item']);
+            echo "<div class='tweet_item' id='text$num'>{$text}</div>";
+        }
+
+        echo "<label class='updatetime'>" . un_enc($row['updatetime']) . "</label></div>";
     }
 }
 

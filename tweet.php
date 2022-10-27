@@ -21,12 +21,13 @@ function show_tweet($category, $maxitem)
         }
 
         $usericon = icon_get($row['author']);
-        $text = preg_replace('/^\r\n/m', '', (nl2br(un_enc($row['item']))));
-        $text = strip_tags($text);
+        //$text = preg_replace('/^\r\n/m', '', (nl2br(un_enc($row['item']))));
+        $text = un_enc($row['item']);
+        //$text = strip_tags($text);
         echo "
         <div class='tweet_box $private_color'>
         <div class='user_info'>
-        <img src='./images/" . nl2br(un_enc($usericon)) . "' class='usericon' />
+        <img src='./images/" . un_enc($usericon) . "' class='usericon' />
         <label class='edit_cat' id='cat$num'>{$row['category']}</label>
         <label class='edit_private' id='prv$num'>{$row['privatepublic']}</label>
         <label class='username' id='aut$num'>{$row['author']}</label>
@@ -38,17 +39,17 @@ function show_tweet($category, $maxitem)
 
         echo "
         </div>
-        <p class='text' id='text$num'>{$text}</p>
+        <div class='tweet_item' id='text$num'>{$text}</div>
         ";
 
         if ($row['imageurl'] != "") {
             echo "
-        <img src='./images/" . nl2br(un_enc($row['imageurl'])) . "' id='img$num' />
+        <img src='./images/" . un_enc($row['imageurl']) . "' id='img$num' />
         ";
         }
 
         echo "
-        <label class='updatetime'>" . nl2br(un_enc($row['updatetime'])) . "</label>
+        <label class='updatetime'>" . un_enc($row['updatetime']) . "</label>
         </div>";
     }
 }

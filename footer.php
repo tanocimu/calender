@@ -1,3 +1,4 @@
+<div class='footer_spacer'>spacer</div>
 <footer>
     <a href="index.php" class="icon_home">avv</a>
     <a href="calender.php" class="icon_calender">geg</a>

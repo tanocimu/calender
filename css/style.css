@@ -23,13 +23,13 @@ h1 {
 }
 
 .calender_box {
-    width: calc(100% - 20px);
+    width: 100%;
     aspect-ratio: 1 / 1.1;
     margin: auto;
     color: rgb(38, 50, 56);
     background: rgb(215, 204, 200);
     border-radius: 3px;
-    padding: 10px;
+    padding: 10px 0px;
     box-sizing: border-box;
 }
 
@@ -110,6 +110,11 @@ a.navbt {
 
 .nav03 {
     background: #000;
+}
+
+.footer_spacer {
+    text-indent: -9999px;
+    margin-bottom: 57px;
 }
 
 footer {
