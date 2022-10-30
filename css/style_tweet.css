@@ -3,6 +3,7 @@
 }
 
 .tweet_box {
+    position: relative;
     font-size: 16px;
     color: #37474F;
     line-height: 20px;
@@ -13,6 +14,27 @@
     padding-bottom: 10px;
     background: #ffffff;
     margin-bottom: 2px;
+}
+
+.tweet_add_comment{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0px 30px;
+    height: 50px;
+}
+
+.tweet_add_comment textarea{
+    width: 80%;
+    height: 50px;
+    background-color: #ebffd9;
+    float: left;
+}
+
+.tweet_add_comment .comment_submit{
+    background-color: #D1C4E9;
+    width: 20%;
+    height: 50px;
+    float: left;
 }
 
 .tweet_item {
@@ -224,7 +246,7 @@
     border-radius: 50%;
 }
 
-.user_info .crown{
+.user_info .crown {
     position: absolute;
     display: block;
     text-indent: -9999px;
@@ -232,7 +254,7 @@
     background-size: contain;
     width: 20px;
     height: 20px;
-    top:7px;
+    top: 7px;
     left: 28px;
 }
 
@@ -276,7 +298,7 @@
     margin-bottom: 2px;
 }
 
-.select_category_box a{
+.select_category_box a {
     position: absolute;
     line-height: 50px;
     text-align: center;
@@ -284,36 +306,102 @@
     border-radius: 8px;
     background: #d6d2bc;
     box-sizing: border-box;
-    border:1px solid rgba(204, 203, 118, 0.867);
+    border: 1px solid rgba(204, 203, 118, 0.867);
 }
 
-a#cat_show1{
+a#cat_show1 {
     width: 33%;
     height: 50px;
     left: 0;
 }
 
 
-a#cat_show2{
+a#cat_show2 {
     width: calc(34% - 4px);
     height: 50px;
     left: calc(33% + 2px);
 }
 
-a#cat_show3{
+a#cat_show3 {
     width: 33%;
     height: 50px;
     right: 0;
 }
 
-#cat_content1{
+#cat_content1 {
     display: block;
 }
 
-#cat_content2{
+#cat_content2 {
     display: block;
 }
 
-#cat_content3{
+#cat_content3 {
     display: block;
+}
+
+.comment_box {
+    position: relative;
+    font-size: 16px;
+    color: #37474F;
+    line-height: 20px;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    padding: 0px 18px;
+    background: #ffffff;
+    margin-bottom: 2px;
+}
+
+.tweet_comment {
+    width: 100%;
+    padding-left: 67px;
+    box-sizing: border-box;
+}
+
+.comment_box .user_info {
+    position: relative;
+    height: 40px;
+    width: 100%;
+}
+
+.comment_box .usericon {
+    top: 0px;
+    left: 12px;
+    position: absolute;
+    width: 9.8vw;
+    aspect-ratio: 1 / 1;
+    margin: 1.5vw;
+    border-radius: 50%;
+    border: 0;
+    box-sizing: border-box;
+}
+
+.comment_box .username {
+    font-size: 14px;
+    width: 200px;
+    position: absolute;
+    top: 14px;
+    left: 70px;
+    font-weight: bold;
+}
+
+.comment_box .updatetime {
+    display: block;
+    width: 100%;
+    padding: 0px 18px 10px 18px;
+    box-sizing: border-box;
+    font-size: 12px;
+}
+
+.comment_box .crown {
+    position: absolute;
+    display: block;
+    text-indent: -9999px;
+    background: url('../parts/crown.png') no-repeat;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+    top: 0px;
+    left: 46px;
 }

@@ -8,6 +8,8 @@ function show_tweet($category, $maxitem)
 
     foreach ($result as $row) {
         $num = $row['num'];
+        $commentlist = show_comment($num);
+
         $private = $row['privatepublic'];
         if (login() != true) {
             if ($private != true) {
@@ -24,6 +26,7 @@ function show_tweet($category, $maxitem)
         //$text = preg_replace('/^\r\n/m', '', (nl2br(un_enc($row['item']))));
         $text = nl2br(un_enc($row['item']));
         //$text = strip_tags($text);
+        $tweet_add_comment = show_comment_form($num, $category);
         echo "
         <div class='tweet_box $private_color'>
         <div class='user_info'>
@@ -56,8 +59,52 @@ function show_tweet($category, $maxitem)
         echo "
         <div id='json$num' class='hide_json'>" . $item_calender . "</div>
         <label class='updatetime'>" . un_enc($row['updatetime']) . "</label>
+        $tweet_add_comment
+        $commentlist
         </div>";
     }
+}
+
+function show_comment($itemnum = 0)
+{
+    $commentlist = '';
+    $pdo = db_access();
+    $sql = "SELECT * FROM kana_comment WHERE lipnum = $itemnum";
+    $result = db_prepare_sql($sql, $pdo);
+    db_close($pdo);
+
+    foreach ($result as $row) {
+        $usericon = icon_get($row['author']);
+        $crown = "";
+        if (check_admin($row['author'])) {
+            $crown = "<label class='crown'>crown</label>";
+        }
+        $commentlist .= "        
+        <div class='comment_box'>
+        <div class='user_info'>
+        <img src='./images/" . un_enc($usericon) . "' class='usericon' />
+        <label class='username'>{$row['author']}</label>
+        </div><div class='tweet_comment'>" . $row['comment'] . "$crown</div></div>";
+    }
+
+    return $commentlist;
+}
+
+function show_comment_form($lipnum, $category)
+{
+    $author = $_SESSION['user_name'];
+    $string = "
+    <div class='tweet_add_comment'>
+    <form id='commentform' method='post' action='" . $_SERVER['REQUEST_URI'] . "' enctype='multipart/form-data'>
+    <input id='lipnum' type='hidden' name='lipnum' value='$lipnum'>
+    <input id='category' type='hidden' name='category' value='$category'>
+    <input id='author' type='hidden' name='author' value='$author'>
+    <textarea id='comment' type='text' name='comment' value='' placeholder='何かコメントしよう！' ></textarea>
+    <button class='comment_submit' id='comment_submit' name='comment_submit' value='comment_submit'>返信</button>
+</form></div>
+    ";
+
+    return $string;
 }
 
 function icon_get($username)

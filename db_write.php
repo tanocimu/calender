@@ -105,6 +105,18 @@ function submit_recieve()
             header('Location: ./calender.php');
         }
         exit;
+    } else if (isset($_POST['comment_submit'])) {
+        $category = $_POST['category'];
+        $pdo = db_access();
+        $sql = "INSERT INTO kana_comment (num, lipnum, comment, author, updatetime) VALUES (NULL, '" . $_POST['lipnum'] . "', '" . $_POST['comment'] . "', '" . $_POST['author'] . "', current_timestamp());";
+        db_prepare_sql($sql, $pdo);
+
+        if ($category == 'tweet') {
+            header('Location: ./');
+        } else {
+            header('Location: ./calender.php');
+        }
+        exit;
     }
     return;
 }
@@ -113,7 +125,7 @@ function show_success_message($msg1)
 {
     if ($_SESSION["success"] == "success") {
         $success_message = "<div class='editjoined' id='editjoined'>$msg1</div>";
-    } 
+    }
     echo $success_message;
     $_SESSION["success"] = "";
 }
