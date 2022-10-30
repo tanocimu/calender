@@ -19,14 +19,29 @@ function signup_submit_recieve()
             // 入力したユーザIDとパスワードを格納
             $username = $_POST["username"];
             $password = $_POST["password"];
+            // 入力したIDが重複したら登録しない
 
             try {
                 $pdo = db_access();
+                $sql = "select count(*) from kana_user where username = '$username'";
+                // SQL実行
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                $_SESSION["success"] = "success";
+                if ($result['count(*)'] > 0) {
+                    show_success_message("ユーザーが存在します。");
+                    return;
+                }
+
                 $stmt = $pdo->prepare("INSERT INTO " . DB_PREFIX . "user(username, password, imageurl) VALUES ( ?, ?, 'init.png')");
                 $stmt->execute(array($username, password_hash($password, PASSWORD_DEFAULT)));
                 $userid = $pdo->lastinsertid();  // 登録した(DB側でauto_incrementした)IDを$useridに入れる
 
                 $signUpMessage = '登録が完了しました。アカウント名： ' . $username . '　／　パスワード： ' . $password . ' です。';  // ログイン時に使用するIDとパスワード
+                $_SESSION["success"] = "success";
+                show_success_message("ユーザーを追加しました。");
             } catch (PDOException $e) {
                 $errorMessage = 'データベースエラー';
                 // $e->getMessage() でエラー内容を参照可能（デバッグ時のみ表示）
@@ -44,9 +59,19 @@ function show_signupform()
     if (!empty($_POST["username"])) {
         $username = htmlspecialchars($_POST["username"], ENT_QUOTES);
     }
+    $pdo = db_access();
+    $sql = "SELECT username FROM kana_user WHERE 1";
+    $result = db_prepare_sql($sql, $pdo);
+    db_close($pdo);
+
+    $userlist = "";
+    foreach ($result as $row) {
+        $userlist .= '<dd>'.$row['username'].'</dd>';
+    }
 
     echo "
-    <form id='signupForm' class='signupForm' name='signupForm' action='' method='POST'>
+    <div class='signupForm'>
+    <form id='signupForm' name='signupForm' action='' method='POST'>
         <fieldset>
             <h2>ユーザーを追加する</h2>
             <label for='username'>ユーザー名</label>
@@ -58,6 +83,12 @@ function show_signupform()
             <input type='submit' id='signUp' name='signUp' value='追加'>
         </fieldset>
     </form>
+    <hr />
+    <h2>登録済みのユーザー</h2>
+    <dl>
+    $userlist
+    </dl>
+    </div>
     ";
 }
 ?>

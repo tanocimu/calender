@@ -109,13 +109,11 @@ function submit_recieve()
     return;
 }
 
-function show_success_message()
+function show_success_message($msg1)
 {
     if ($_SESSION["success"] == "success") {
-        $success_message = "<div class='editjoined' id='editjoined'>記事の編集に成功しました！</div>";
-    } elseif ($_SESSION["success"] == "delete") {
-        $success_message = "<div class='editjoined' id='editjoined'>記事を削除しました。</div>";
-    }
+        $success_message = "<div class='editjoined' id='editjoined'>$msg1</div>";
+    } 
     echo $success_message;
     $_SESSION["success"] = "";
 }
