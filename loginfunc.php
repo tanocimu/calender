@@ -70,6 +70,8 @@ function take_submit()
                         }
                         $_SESSION['user_name'] = $id;
                         $_SESSION['user_num'] = $row['num'];
+                        $_SESSION['admin'] = $row['admin'];
+
                         header('Location: ./index.php');
                         exit();
                     } else {

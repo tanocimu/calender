@@ -29,7 +29,7 @@ function show_calender($target, $maxitem)
             <label class='username' id='aut$num'>{$row['author']}</label>
             ";
 
-        if (login() == $row['author']) {
+        if (login() == $row['author'] || $_SESSION['admin']) {
             echo "<a id='edit$num' class='edit'>…</a>";
         }
         echo "</div>";
