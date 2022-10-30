@@ -2,7 +2,7 @@
 function show_calender($target, $maxitem)
 {
     $pdo = db_access();
-    $sql = "SELECT * FROM kana_tweet WHERE category = '$target' ORDER BY updatetime DESC LIMIT $maxitem";
+    $sql = "SELECT * FROM " . DB_PREFIX . "tweet WHERE category = '$target' ORDER BY updatetime DESC LIMIT $maxitem";
     $result = db_prepare_sql($sql, $pdo);
 
     foreach ($result as $row) {
@@ -32,6 +32,11 @@ function show_calender($target, $maxitem)
         if (login() == $row['author'] || $_SESSION['admin']) {
             echo "<a id='edit$num' class='edit'>…</a>";
         }
+
+        if (check_admin($row['author'])) {
+            echo "<label class='crown'>crown</label>";
+        }
+
         echo "</div>";
 
         $text = nl2br(un_enc($row['item']));

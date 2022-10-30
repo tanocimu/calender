@@ -3,9 +3,11 @@ session_start();
 require_once("config.php");
 require_once("db_write.php");
 require_once("loginfunc.php");
+require_once("signup.php");
 require_once "./tweet.php";
 require_once "./calenderfunc.php";
 submit_recieve();
+signup_submit_recieve();
 ?>
 <!DOCTYPE html>
 

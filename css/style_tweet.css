@@ -224,6 +224,18 @@
     border-radius: 50%;
 }
 
+.user_info .crown{
+    position: absolute;
+    display: block;
+    text-indent: -9999px;
+    background: url('../parts/crown.png') no-repeat;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+    top:7px;
+    left: 28px;
+}
+
 #preview {
     display: block;
     position: absolute;

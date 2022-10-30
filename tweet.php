@@ -2,7 +2,7 @@
 function show_tweet($category, $maxitem)
 {
     $pdo = db_access();
-    $query = "SELECT * FROM kana_tweet WHERE category = '$category' ORDER BY kana_tweet.updatetime DESC LIMIT $maxitem;";
+    $query = "SELECT * FROM " . DB_PREFIX . "tweet WHERE category = '$category' ORDER BY " . DB_PREFIX . "tweet.updatetime DESC LIMIT $maxitem;";
     $result = db_prepare_sql($query, $pdo);
     db_close($pdo);
 
@@ -37,6 +37,10 @@ function show_tweet($category, $maxitem)
             echo "<a id='edit$num' class='edit'>…</a>";
         }
 
+        if (check_admin($row['author'])) {
+            echo "<label class='crown'>crown</label>";
+        }
+
         echo "
         </div>
         <div class='tweet_item' id='text$num'>{$text}</div>
@@ -59,7 +63,7 @@ function show_tweet($category, $maxitem)
 function icon_get($username)
 {
     $pdo = db_access();
-    $query = "SELECT imageurl FROM kana_user WHERE username='$username';";
+    $query = "SELECT imageurl FROM " . DB_PREFIX . "user WHERE username='$username';";
     $userimage = db_prepare_sql($query, $pdo);
     db_close($pdo);
 

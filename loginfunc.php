@@ -54,7 +54,7 @@ function take_submit()
             try {
                 $pdo = db_access();
 
-                $stmt = $pdo->prepare('SELECT * FROM kana_user WHERE username = ?');
+                $stmt = $pdo->prepare("SELECT * FROM " . DB_PREFIX . "user WHERE username = ?");
                 $stmt->execute(array($userid));
 
                 $password = $_POST["password"];
@@ -63,7 +63,7 @@ function take_submit()
                     if (password_verify($password, $row['password'])) {
                         // 入力したIDのユーザー名を取得
                         $id = $row['username'];
-                        $sql = "SELECT * FROM kana_user WHERE username = '$id'";
+                        $sql = "SELECT * FROM " . DB_PREFIX . "user WHERE username = '$id'";
                         $stmt = $pdo->query($sql);
                         foreach ($stmt as $row) {
                             $row['username'];
@@ -109,7 +109,7 @@ function take_submit()
         }
 
         $pdo = db_access();
-        $sql = "UPDATE kana_user SET imageurl = '$imageurl' WHERE kana_user.num = $usernum;";
+        $sql = "UPDATE " . DB_PREFIX . "user SET imageurl = '$imageurl' WHERE " . DB_PREFIX . "user.num = $usernum;";
         db_prepare_sql($sql, $pdo);
         db_close($pdo);
         $_SESSION["success"] = "success";

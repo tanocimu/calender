@@ -68,13 +68,13 @@ function submit_recieve()
             // stk_num空なら記事を新規作成、あればその番号の記事を更新
             $categorynum = $_POST['category'];
             if ($_POST['num'] == "") {
-                $sql = "INSERT INTO kana_tweet (num, category, item, etc, imageurl, author, privatepublic, updatetime) VALUES (NULL, '{$category[$categorynum]}', '{$item}', '{$calender}', '{$imageurl}', '{$_POST['author']}', '{$_POST['privatepublic']}', current_timestamp());";
+                $sql = "INSERT INTO " . DB_PREFIX . "tweet (num, category, item, etc, imageurl, author, privatepublic, updatetime) VALUES (NULL, '{$category[$categorynum]}', '{$item}', '{$calender}', '{$imageurl}', '{$_POST['author']}', '{$_POST['privatepublic']}', current_timestamp());";
                 db_prepare_sql($sql, $pdo);
             } else {
                 if ($imageurl != '') {
-                    $sql = "UPDATE kana_tweet SET item = '{$item}', etc = '{$calender}',imageurl = '{$imageurl}', privatepublic = '{$_POST['privatepublic']}', updatetime = current_timestamp() WHERE kana_tweet.num = {$_POST['num']};";
+                    $sql = "UPDATE " . DB_PREFIX . "tweet SET item = '{$item}', etc = '{$calender}',imageurl = '{$imageurl}', privatepublic = '{$_POST['privatepublic']}', updatetime = current_timestamp() WHERE " . DB_PREFIX . "tweet.num = {$_POST['num']};";
                 } else {
-                    $sql = "UPDATE kana_tweet SET item = '{$item}', etc = '{$calender}', privatepublic = '{$_POST['privatepublic']}', updatetime = current_timestamp() WHERE kana_tweet.num = {$_POST['num']};";
+                    $sql = "UPDATE " . DB_PREFIX . "tweet SET item = '{$item}', etc = '{$calender}', privatepublic = '{$_POST['privatepublic']}', updatetime = current_timestamp() WHERE " . DB_PREFIX . "tweet.num = {$_POST['num']};";
                 }
                 db_prepare_sql($sql, $pdo);
             }
@@ -96,7 +96,7 @@ function submit_recieve()
         // DB削除
         $categorynum = $_POST['category'];
         $pdo = db_access();
-        $sql = "DELETE FROM kana_tweet WHERE kana_tweet.num = '" . $_POST['num'] . "';";
+        $sql = "DELETE FROM " . DB_PREFIX . "tweet WHERE " . DB_PREFIX . "tweet.num = '" . $_POST['num'] . "';";
         db_prepare_sql($sql, $pdo);
         $_SESSION["success"] = "delete";
         if ($category[$categorynum] == 'tweet') {
@@ -130,6 +130,22 @@ function un_enc($str)
 {
     $str = htmlspecialchars_decode($str);
     return $str;
+}
+
+function check_admin($username)
+{
+    $check = false;
+
+    $pdo = db_access();
+    $sql = "SELECT admin FROM kana_user WHERE username = '$username'";
+    $result = db_prepare_sql($sql, $pdo);
+
+    foreach ($result as $row) {
+        $check = $row['admin'];
+    }
+
+    db_close($pdo);
+    return $check;
 }
 ?>
 <!-- EOF -->

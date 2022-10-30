@@ -66,3 +66,36 @@
     height: 70px;
     border-radius: 10px;
 }
+
+.signupForm{
+    position: relative;
+    background: #ffffff;
+    margin: 10px auto;
+    padding: 20px 40px;
+    width: calc(100% - 40px);
+    border-radius: 10px;
+    height: 260px;
+    box-sizing: border-box;
+    text-align: center;  
+}
+
+.signupForm input {
+    border: solid 1px rgb(199, 199, 199);  
+    height: 30px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding-left: 20px;
+    margin-bottom: 5px;
+}
+
+.signupForm label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.signupForm h2 {
+    display: block;
+    text-align: left;
+    margin-bottom: 10px;
+}
