@@ -53,6 +53,21 @@ function signup_submit_recieve()
     }
 }
 
+function userdelete_recieve()
+{
+    if (!empty($_POST["udelsubmit"])) {
+        $pdo = db_access();
+        $sql = "DELETE FROM " . DB_PREFIX . "user WHERE " . DB_PREFIX . "user.num = '" . $_POST['udelselect'] . "';";
+        db_prepare_sql($sql, $pdo);
+        db_close($pdo);
+        $_SESSION["success"] = "success";
+        show_success_message("ユーザーを削除しました。");
+
+        //header('Location: ./login.php');
+        //exit;
+    }
+}
+
 function show_signupform()
 {
     $username = "";
@@ -60,13 +75,13 @@ function show_signupform()
         $username = htmlspecialchars($_POST["username"], ENT_QUOTES);
     }
     $pdo = db_access();
-    $sql = "SELECT username FROM " . DB_PREFIX . "user WHERE 1";
+    $sql = "SELECT num, username FROM " . DB_PREFIX . "user WHERE 1";
     $result = db_prepare_sql($sql, $pdo);
     db_close($pdo);
 
     $userlist = "";
     foreach ($result as $row) {
-        $userlist .= '<dd>' . $row['username'] . '</dd>';
+        $userlist .= "<option value='" . $row['num'] . "'>" . $row['username'] . "</option>";
     }
 
     echo "
@@ -85,9 +100,12 @@ function show_signupform()
     </form>
     <hr />
     <h2>登録済みのユーザー</h2>
-    <dl>
+    <form id='udelForm' name='udelForm' action='' method='POST'>
+    <select id='udelselect' name='udelselect'>
     $userlist
-    </dl>
+    </select>
+    <input type='submit' id='udelsubmit' name='udelsubmit' value='ユーザー削除'>
+    </form>
     </div>
     ";
 }

@@ -180,3 +180,14 @@ footer a.icon_plus {
         -webkit-transform: scale(0.97, 1.17);
     }
 }
+
+@media screen and (min-width:420px) {
+    body{
+        margin: auto;
+        width: 420px;
+    }
+
+    footer {
+        width: 420px;
+    }
+}

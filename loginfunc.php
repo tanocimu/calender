@@ -99,7 +99,7 @@ function take_submit()
     }
 
     if (isset($_POST['iconchange']) && !empty($_FILES['image']['tmp_name'][0])) {
-        $usernum = $_POST['num'];
+        $usernum = $_POST['inum'];
         $imageurl = "";
 
         for ($i = 0; $i < count($_FILES['image']['name']); $i++) {
@@ -127,10 +127,10 @@ function usericon_change()
         echo "
         <div class='iconchange_form'>
         ユーザーアイコンを変更しよう！
-    <form id='form' method='post' action='login.php' enctype='multipart/form-data'>
-        <input id='num' type='hidden' name='num' value='$usernum '>
-        <input id='author' type='hidden' name='author' value='$username'>
-        <input class='inputimage' id='image' type='file' name='image[]' accept='image/*'>
+    <form method='post' action='login.php' enctype='multipart/form-data'>
+        <input id='inum' type='hidden' name='inum' value='$usernum '>
+        <input id='iauthor' type='hidden' name='iauthor' value='$username'>
+        <input class='inputimage' id='iimage' type='file' name='image[]' accept='image/*'>
         <div id='preview'></div>
         <button class='iconchange' id='iconchange' name='iconchange' value='submit'>変更する</button>
     </form>

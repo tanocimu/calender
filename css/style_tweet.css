@@ -73,12 +73,11 @@
 }
 
 .usericon {
-    top: 12px;
-    left: 12px;
+    top: 13px;
+    left: 13px;
     position: absolute;
-    width: 9.8vw;
+    width: 51px;
     aspect-ratio: 1 / 1;
-    margin: 1.5vw;
     border-radius: 50%;
     border: 0;
     box-sizing: border-box;
@@ -235,12 +234,11 @@
 }
 
 .form_usericon {
-    top: 48px;
-    left: 7px;
+    top: 51px;
+    left: 10px;
     position: absolute;
-    width: 8.8vw;
+    width: 41px;
     aspect-ratio: 1 / 1;
-    margin: 1.5vw;
     border-radius: 50%;
     border: 0;
     box-sizing: border-box;
@@ -381,12 +379,11 @@ a#cat_show3 {
 }
 
 .comment_box .usericon {
-    top: 0px;
-    left: 12px;
+    top: 15px;
+    left: 21px;
     position: absolute;
-    width: 9.8vw;
+    width: 39px;
     aspect-ratio: 1 / 1;
-    margin: 1.5vw;
     border-radius: 50%;
     border: 0;
     box-sizing: border-box;

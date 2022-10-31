@@ -24,7 +24,7 @@
     display: block;
     margin: auto;
     margin-bottom: 20px;
-    width: 15vw;
+    width: 100px;
     aspect-ratio: 1 / 1;
     border-radius: 50%;
     border: 0;
@@ -57,8 +57,8 @@
 .iconchange_form input[type="file"] {
     text-indent: -9999px;
     position: absolute;
-    top:50px;
-    left:60px;
+    top: 50px;
+    left: 60px;
     background: url('../parts/file.png') no-repeat center;
     background-size: 30px 26px;
     border: solid 1px rgb(199, 199, 199);
@@ -67,7 +67,7 @@
     border-radius: 10px;
 }
 
-.signupForm{
+.signupForm {
     position: relative;
     background: #ffffff;
     margin: 10px auto;
@@ -75,11 +75,11 @@
     width: calc(100% - 40px);
     border-radius: 10px;
     box-sizing: border-box;
-    text-align: center;  
+    text-align: center;
 }
 
 .signupForm input {
-    border: solid 1px rgb(199, 199, 199);  
+    border: solid 1px rgb(199, 199, 199);
     height: 30px;
     border-radius: 10px;
     box-sizing: border-box;
@@ -138,4 +138,16 @@
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+#udelselect {
+    margin-bottom: 50px;
+}
+
+#udelsubmit {
+    padding: 0;
+    width: 100px;
+    background: #e90303;
+    border: 0;
+    color: #ffffff;
 }
