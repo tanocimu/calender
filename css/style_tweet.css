@@ -16,24 +16,39 @@
     margin-bottom: 2px;
 }
 
-.tweet_add_comment{
+.tweet_add_comment {
+    position: relative;
     width: 100%;
     box-sizing: border-box;
-    padding: 0px 30px;
     height: 50px;
 }
 
-.tweet_add_comment textarea{
-    width: 80%;
+.tweet_add_comment textarea {
+    position: absolute;
+    top: 0;
+    left: 30px;
+    width: calc(80% - 30px);
     height: 50px;
     background-color: #ebffd9;
-    float: left;
+    font-size: 16px;
+    line-height: 50px;
+    padding-left: 10px;
+    box-sizing: border-box;
+    border-radius: 10px 0px 0px 10px;
 }
 
-.tweet_add_comment .comment_submit{
+.tweet_add_comment textarea:focus {
+    outline: none;
+}
+
+.tweet_add_comment .comment_submit {
+    position: absolute;
+    top: 0;
+    right: 30px;
     background-color: #D1C4E9;
-    width: 20%;
+    width: calc(20% - 30px);
     height: 50px;
+    border-radius: 0px 10px 10px 0px;
     float: left;
 }
 

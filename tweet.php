@@ -23,10 +23,10 @@ function show_tweet($category, $maxitem)
         }
 
         $usericon = icon_get($row['author']);
-        //$text = preg_replace('/^\r\n/m', '', (nl2br(un_enc($row['item']))));
         $text = nl2br(un_enc($row['item']));
-        //$text = strip_tags($text);
-        $tweet_add_comment = show_comment_form($num, $category);
+
+        $tweet_add_comment = "";
+
         echo "
         <div class='tweet_box $private_color'>
         <div class='user_info'>
@@ -38,6 +38,10 @@ function show_tweet($category, $maxitem)
 
         if (login() == $row['author'] || $_SESSION['admin']) {
             echo "<a id='edit$num' class='edit'>…</a>";
+        }
+
+        if (login()) {
+            $tweet_add_comment = show_comment_form($num, $category);
         }
 
         if (check_admin($row['author'])) {
@@ -99,7 +103,7 @@ function show_comment_form($lipnum, $category)
     <input id='lipnum' type='hidden' name='lipnum' value='$lipnum'>
     <input id='category' type='hidden' name='category' value='$category'>
     <input id='author' type='hidden' name='author' value='$author'>
-    <textarea id='comment' type='text' name='comment' value='' placeholder='何かコメントしよう！' ></textarea>
+    <textarea id='comment' type='text' name='comment' value='' placeholder='コメントして盛り上げよう！' ></textarea>
     <button class='comment_submit' id='comment_submit' name='comment_submit' value='comment_submit'>返信</button>
 </form></div>
     ";
