@@ -108,7 +108,7 @@ function submit_recieve()
     } else if (isset($_POST['comment_submit'])) {
         $category = $_POST['category'];
         $pdo = db_access();
-        $sql = "INSERT INTO kana_comment (num, lipnum, comment, author, updatetime) VALUES (NULL, '" . $_POST['lipnum'] . "', '" . $_POST['comment'] . "', '" . $_POST['author'] . "', current_timestamp());";
+        $sql = "INSERT INTO " . DB_PREFIX . "comment (num, lipnum, comment, author, updatetime) VALUES (NULL, '" . $_POST['lipnum'] . "', '" . $_POST['comment'] . "', '" . $_POST['author'] . "', current_timestamp());";
         db_prepare_sql($sql, $pdo);
 
         if ($category == 'tweet') {
@@ -147,7 +147,7 @@ function check_admin($username)
     $check = false;
 
     $pdo = db_access();
-    $sql = "SELECT admin FROM kana_user WHERE username = '$username'";
+    $sql = "SELECT admin FROM " . DB_PREFIX . "user WHERE username = '$username'";
     $result = db_prepare_sql($sql, $pdo);
 
     foreach ($result as $row) {

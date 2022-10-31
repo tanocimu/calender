@@ -73,7 +73,7 @@ function show_comment($itemnum = 0)
 {
     $commentlist = '';
     $pdo = db_access();
-    $sql = "SELECT * FROM kana_comment WHERE lipnum = $itemnum";
+    $sql = "SELECT * FROM " . DB_PREFIX . "comment WHERE lipnum = $itemnum";
     $result = db_prepare_sql($sql, $pdo);
     db_close($pdo);
 

@@ -23,7 +23,7 @@ function signup_submit_recieve()
 
             try {
                 $pdo = db_access();
-                $sql = "select count(*) from kana_user where username = '$username'";
+                $sql = "select count(*) from " . DB_PREFIX . "user where username = '$username'";
                 // SQL実行
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute();
@@ -60,13 +60,13 @@ function show_signupform()
         $username = htmlspecialchars($_POST["username"], ENT_QUOTES);
     }
     $pdo = db_access();
-    $sql = "SELECT username FROM kana_user WHERE 1";
+    $sql = "SELECT username FROM " . DB_PREFIX . "user WHERE 1";
     $result = db_prepare_sql($sql, $pdo);
     db_close($pdo);
 
     $userlist = "";
     foreach ($result as $row) {
-        $userlist .= '<dd>'.$row['username'].'</dd>';
+        $userlist .= '<dd>' . $row['username'] . '</dd>';
     }
 
     echo "
