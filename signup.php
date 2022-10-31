@@ -57,8 +57,22 @@ function userdelete_recieve()
 {
     if (!empty($_POST["udelsubmit"])) {
         $pdo = db_access();
-        $sql = "DELETE FROM " . DB_PREFIX . "user WHERE " . DB_PREFIX . "user.num = '" . $_POST['udelselect'] . "';";
+        // アカウント削除
+        $sql = "DELETE FROM " . DB_PREFIX . "user WHERE " . DB_PREFIX . "user.username = '" . $_POST['udelselect'] . "';";
         db_prepare_sql($sql, $pdo);
+
+        // アイテム削除
+        $sql = "DELETE FROM " . DB_PREFIX . "tweet WHERE " . DB_PREFIX . "tweet.author = '" . $_POST['udelselect'] . "'";
+        db_prepare_sql($sql, $pdo);
+
+        // ポスターがしたコメント削除
+        $sql = "DELETE FROM " . DB_PREFIX . "comment WHERE " . DB_PREFIX . "comment.poster = '" . $_POST['udelselect'] . "'";
+        db_prepare_sql($sql, $pdo);
+
+        // アカウントに投稿されたコメントの削除
+        $sql = "DELETE FROM " . DB_PREFIX . "comment WHERE " . DB_PREFIX . "comment.author = '" . $_POST['udelselect'] . "'";
+        db_prepare_sql($sql, $pdo);
+
         db_close($pdo);
         $_SESSION["success"] = "success";
         show_success_message("ユーザーを削除しました。");
@@ -81,7 +95,7 @@ function show_signupform()
 
     $userlist = "";
     foreach ($result as $row) {
-        $userlist .= "<option value='" . $row['num'] . "'>" . $row['username'] . "</option>";
+        $userlist .= "<option value='" . $row['username'] . "'>" . $row['username'] . "</option>";
     }
 
     echo "

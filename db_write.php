@@ -105,10 +105,10 @@ function submit_recieve()
             header('Location: ./calender.php');
         }
         exit;
-    } else if (isset($_POST['comment_submit'])) {
+    } else if (isset($_POST['comment_submit']) && $_POST['comment'] != '') {
         $category = $_POST['category'];
         $pdo = db_access();
-        $sql = "INSERT INTO " . DB_PREFIX . "comment (num, lipnum, comment, author, updatetime) VALUES (NULL, '" . $_POST['lipnum'] . "', '" . $_POST['comment'] . "', '" . $_POST['author'] . "', current_timestamp());";
+        $sql = "INSERT INTO " . DB_PREFIX . "comment (num, lipnum, comment, author, poster, updatetime) VALUES (NULL, '" . $_POST['lipnum'] . "', '" . $_POST['comment'] . "', '" . $_POST['author'] . "', '" . $_POST['poster'] . "', current_timestamp());";
         db_prepare_sql($sql, $pdo);
 
         if ($category == 'tweet') {

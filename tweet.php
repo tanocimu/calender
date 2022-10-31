@@ -41,7 +41,7 @@ function show_tweet($category, $maxitem)
         }
 
         if (login()) {
-            $tweet_add_comment = show_comment_form($num, $category);
+            $tweet_add_comment = show_comment_form($num, $category, $row['author']);
         }
 
         if (check_admin($row['author'])) {
@@ -78,31 +78,32 @@ function show_comment($itemnum = 0)
     db_close($pdo);
 
     foreach ($result as $row) {
-        $usericon = icon_get($row['author']);
+        $usericon = icon_get($row['poster']);
         $crown = "";
-        if (check_admin($row['author'])) {
+        if (check_admin($row['poster'])) {
             $crown = "<label class='crown'>crown</label>";
         }
         $commentlist .= "        
         <div class='comment_box'>
         <div class='user_info'>
         <img src='./images/" . un_enc($usericon) . "' class='usericon' />
-        <label class='username'>{$row['author']}</label>
+        <label class='username'>{$row['poster']}</label>
         </div><div class='tweet_comment'>" . $row['comment'] . "$crown</div></div>";
     }
 
     return $commentlist;
 }
 
-function show_comment_form($lipnum, $category)
+function show_comment_form($lipnum, $category, $author)
 {
-    $author = $_SESSION['user_name'];
+    $poster = $_SESSION['user_name'];
     $string = "
     <div class='tweet_add_comment'>
     <form id='commentform' method='post' action='" . $_SERVER['REQUEST_URI'] . "' enctype='multipart/form-data'>
     <input id='lipnum' type='hidden' name='lipnum' value='$lipnum'>
     <input id='category' type='hidden' name='category' value='$category'>
     <input id='author' type='hidden' name='author' value='$author'>
+    <input id='poster' type='hidden' name='poster' value='$poster'>
     <textarea id='comment' type='text' name='comment' value='' placeholder='コメントして盛り上げよう！' ></textarea>
     <button class='comment_submit' id='comment_submit' name='comment_submit' value='comment_submit'>返信</button>
 </form></div>
