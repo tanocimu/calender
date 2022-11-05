@@ -22,6 +22,8 @@ document.addEventListener("click", (e) => {
     let picker_day = /^d[0-9]{8,8}/;
     let edit = /^edit[0-9]{1,4}/;
     let catshow = /^cat_show[0-9]{1,2}/;
+    let cmap = /^cmap[0-9]{1,4}/;
+    let cmno = /^cmno[0-9]{1,4}/;
 
     if (pattern.test(e.target.id)) {
         modal_show(e);
@@ -56,8 +58,18 @@ document.addEventListener("click", (e) => {
         showCalenderIcon();
     } else if (catshow.test(e.target.id)) {
         calenderCategory_change(e.target.id);
+    } else if (cmap.test(e.target.id) || cmno.test(e.target.id)) {
+        approval_submit(e.target.id);
     }
 });
+
+function approval_submit(targetid) {
+    var apfm = document.getElementById('approvalform');
+    apfm.apnum.value = targetid.slice(4, 7);
+    apfm.approval.value = targetid.slice(0, 4);
+
+    document.getElementById('approval').click();
+}
 
 function calenderCategory_change(targetid) {
     let catnum = targetid.slice(8, 9);

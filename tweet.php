@@ -40,9 +40,7 @@ function show_tweet($category, $maxitem)
             echo "<a id='edit$num' class='edit'>…</a>";
         }
 
-        if (login()) {
-            $tweet_add_comment = show_comment_form($num, $category, $row['author']);
-        }
+        $tweet_add_comment = show_comment_form($num, $category, $row['author']);
 
         if (check_admin($row['author'])) {
             echo "<label class='crown'>crown</label>";
@@ -78,33 +76,58 @@ function show_comment($itemnum = 0)
     db_close($pdo);
 
     foreach ($result as $row) {
-        $usericon = icon_get($row['poster']);
-        $crown = "";
-        if (check_admin($row['poster'])) {
-            $crown = "<label class='crown'>crown</label>";
-        }
-        $commentlist .= "        
-        <div class='comment_box'>
+        if ($row['approval'] == true || $_SESSION['admin']) {
+            $private_color = "";
+            $approval_bt = "";
+            if ($row['approval'] != true) {
+                $private_color = "tweet_private";
+                $approval_bt = "<label id='cmap{$row['num']}' class='comment_approval'>〇</label>
+                <label id='cmno{$row['num']}' class='comment_notapproval'>×</label>";
+            }
+
+            $usericon = icon_get($row['poster']);
+            $crown = "";
+            if (check_admin($row['poster'])) {
+                $crown = "<label class='crown'>crown</label>";
+            }
+            $commentlist .= "        
+        <div class='comment_box $private_color'>
         <div class='user_info'>
         <img src='./images/" . un_enc($usericon) . "' class='usericon' />
         <label class='username'>{$row['poster']}</label>
-        </div><div class='tweet_comment'>" . $row['comment'] . "$crown</div></div>";
+        </div><div class='tweet_comment'>{$row['comment']}$crown</div>
+        $approval_bt</div>";
+        }
     }
 
     return $commentlist;
 }
 
+function show_cm_approval_form()
+{
+    $form = "<form id='approvalform' class='approvalform' method='post' action='" . $_SERVER['REQUEST_URI'] . "'>
+    <input id='apnum' type='hidden' name='apnum' value=''>
+    <button class='approval' id='approval' name='approval' value='cmno'>join</button>
+</form>";
+
+    echo $form;
+}
+
 function show_comment_form($lipnum, $category, $author)
 {
-    $poster = $_SESSION['user_name'];
+    $poster = 'anonymous';
+    if ($_SESSION['user_name'] != '') {
+        $poster = $_SESSION['user_name'];
+    }
+
     $string = "
     <div class='tweet_add_comment'>
-    <form id='commentform' method='post' action='" . $_SERVER['REQUEST_URI'] . "' enctype='multipart/form-data'>
+    <form id='commentform' method='post' action='" . $_SERVER['REQUEST_URI'] . "'>
     <input id='lipnum' type='hidden' name='lipnum' value='$lipnum'>
     <input id='category' type='hidden' name='category' value='$category'>
     <input id='author' type='hidden' name='author' value='$author'>
     <input id='poster' type='hidden' name='poster' value='$poster'>
-    <textarea id='comment' type='text' name='comment' value='' placeholder='コメントして盛り上げよう！' ></textarea>
+    <input type='text' id='comment' type='text' name='comment' value='' placeholder='コメントして盛り上げよう！' >
     <button class='comment_submit' id='comment_submit' name='comment_submit' value='comment_submit'>返信</button>
 </form></div>
     ";

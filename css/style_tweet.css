@@ -23,7 +23,7 @@
     height: 50px;
 }
 
-.tweet_add_comment textarea {
+.tweet_add_comment input[type="text"] {
     position: absolute;
     top: 0;
     left: 30px;
@@ -37,7 +37,7 @@
     border-radius: 10px 0px 0px 10px;
 }
 
-.tweet_add_comment textarea:focus {
+.tweet_add_comment input[type="text"]:focus {
     outline: none;
 }
 
@@ -362,7 +362,6 @@ a#cat_show3 {
     height: auto;
     box-sizing: border-box;
     padding: 0px 18px;
-    background: #ffffff;
     margin-bottom: 2px;
 }
 
@@ -416,4 +415,36 @@ a#cat_show3 {
     height: 20px;
     top: 0px;
     left: 46px;
+}
+
+.comment_approval {
+    position: absolute;
+    color: #ffffff;
+    top: 5px;
+    right: 50px;
+    display: block;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    background-color: rgb(89, 207, 42);
+}
+
+.comment_notapproval {
+    position: absolute;
+    color: #ffffff;
+    top: 5px;
+    right: 10px;
+    display: block;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    background-color: rgb(235, 54, 54);
+}
+
+.approvalform {
+    display: none;
 }

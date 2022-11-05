@@ -117,6 +117,29 @@ function submit_recieve()
             header('Location: ./calender.php');
         }
         exit;
+    } else if (isset($_POST['approval'])) {
+        $approval = $_POST['approval'];
+        switch ($approval) {
+            case "cmap":
+                $_SESSION["success"] = 'success';
+                $pdo = db_access();
+                $sql = "UPDATE " . DB_PREFIX . "comment SET approval = 1 WHERE " . DB_PREFIX . "comment.num = {$_POST['apnum']};";
+                db_prepare_sql($sql, $pdo);
+
+                show_success_message('コメントを承認しました！');
+                break;
+            case "cmno":
+                $_SESSION["success"] = 'success';
+                $pdo = db_access();
+                $sql = "DELETE FROM " . DB_PREFIX . "comment WHERE " . DB_PREFIX . "comment.num = {$_POST['apnum']};";
+                db_prepare_sql($sql, $pdo);
+
+                show_success_message('コメントを削除しました。');
+                break;
+            default:
+                break;
+        }
+        return;
     }
     return;
 }

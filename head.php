@@ -68,4 +68,5 @@ userdelete_recieve();
     <?php
     if (login()) {
         show_tweet_form();
+        show_cm_approval_form();
     } ?>
